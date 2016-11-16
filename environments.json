@@ -1,0 +1,8 @@
+{
+  "development": {
+    "GOOGLE_OAUTH_CLIENT_ID": ""
+  },
+  "production": {
+    "GOOGLE_OAUTH_CLIENT_ID": ""
+  }
+}

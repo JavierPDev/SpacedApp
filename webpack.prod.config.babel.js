@@ -2,6 +2,7 @@ import webpack from 'webpack';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 
 import config from './webpack.config.babel';
+import { production as env } from './environments.json';
 
 config.output = {
   path: './dist/',
@@ -38,6 +39,13 @@ config.plugins.push(new webpack.optimize.UglifyJsPlugin({
   },
   mangle: {
     except: ['$super', '$', 'exports', 'require']
+  }
+}));
+
+// Set environment variables for google calendar oauth api
+config.plugins.push(new webpack.DefinePlugin({
+  'process.env': {
+    'GOOGLE_OAUTH_CLIENT_ID': JSON.stringify(env.GOOGLE_OAUTH_CLIENT_ID)
   }
 }));
 
