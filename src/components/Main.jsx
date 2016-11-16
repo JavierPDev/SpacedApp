@@ -6,8 +6,11 @@ export default function Main(props) {
   return (
     <div>
       <Nav />
-      {props.children}
+      <div className="row">
+        <div className="columns small-12 medium-6 small-centered">
+          {props.children}
+        </div>
+      </div>
     </div>
   );
 }
-

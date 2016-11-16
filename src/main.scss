@@ -1,2 +1,8 @@
 @import 'vendor';
 @import 'variables';
+
+// Needed so drawer can be slid out even when pulling from bottom of the 
+// viewport
+html, body {
+  min-height: 100vh;
+}

@@ -27,7 +27,7 @@ config.module.loaders.push({
 
 // Strip debug code from js in addition to usual DI and, babel, and linting
 config.module.loaders.push({
-  test: /\.js$/,
+  test: /(\.js$)|(\.jsx$)/,
   loader: 'strip-loader?strip[]=debug,strip[]=console.log!babel-loader'
 });
 
