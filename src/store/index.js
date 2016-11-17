@@ -1,10 +1,10 @@
 import * as redux from 'redux';
 import thunk from 'redux-thunk';
 
-import alertReducer from '../reducers/alertReducer.jsx';
-import authReducer from '../reducers/authReducer.jsx';
-import calendarsReducer from '../reducers/calendarsReducer.jsx';
-import appbarTitleReducer from '../reducers/appbarTitleReducer.jsx';
+import alertReducer from '../reducers/alertReducer';
+import authReducer from '../reducers/authReducer';
+import calendarsReducer from '../reducers/calendarsReducer';
+import appbarTitleReducer from '../reducers/appbarTitleReducer';
 
 export const store = configureStore();
 
