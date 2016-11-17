@@ -5,8 +5,8 @@ import ContentAdd from 'material-ui/svg-icons/content/add';
 
 const style = {
   position: 'fixed',
-  bottom: '10%',
-  right: '10%'
+  bottom: '8%',
+  right: '8%'
 };
 
 class AddEvent extends React.Component {
