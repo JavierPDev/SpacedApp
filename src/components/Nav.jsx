@@ -9,6 +9,7 @@ import Info from 'material-ui/svg-icons/action/info';
 import PersonOutline from 'material-ui/svg-icons/social/person-outline';
 
 import { logout } from 'authActions';
+import { displayAlert } from 'alertActions';
 
 class Nav extends React.Component {
   constructor(props) {
@@ -29,6 +30,7 @@ class Nav extends React.Component {
 
   onLogoutTouch() {
     this.props.dispatch(logout());
+    this.props.dispatch(displayAlert('Logged out'));
     this.toggleNav();
   }
 

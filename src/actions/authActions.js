@@ -2,6 +2,7 @@ import { browserHistory } from 'react-router';
 
 import * as auth from '../auth/google';
 import { startCalendarRetrieval } from 'calendarActions';
+import { displayAlert } from 'alertActions';
 
 export function startAuthCheck() {
   return (dispatch, getState) => {
@@ -21,8 +22,10 @@ export function startAuthFlow() {
       .then((authResult) => {
         dispatch(grantAuthorization(authResult));
         dispatch(startCalendarRetrieval());
+        dispatch(displayAlert('Logged in'));
       }, () => {
         dispatch(denyAuthorization());
+        dispatch(displayAlert('Couldn\'t login'));
       });
   };
 }

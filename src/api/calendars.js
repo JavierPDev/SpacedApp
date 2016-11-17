@@ -22,6 +22,8 @@ export function getCalendar() {
             gapi.client.calendar.calendars.insert({summary: CALENDAR_NAME})
               .execute((res) => {
                 console.log('created calendar', res);
+                // Mark as new for alert in calendar action
+                res.isNew = true;
                 resolve(res);
               });
           }

@@ -1,6 +1,7 @@
 import React from 'react';
 
 import Nav from 'Nav';
+import Alert from 'Alert';
 
 export default function Main(props) {
   return (
@@ -11,6 +12,7 @@ export default function Main(props) {
           {props.children}
         </div>
       </div>
+      <Alert />
     </div>
   );
 }

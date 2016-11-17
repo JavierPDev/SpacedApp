@@ -1,6 +1,7 @@
 import * as redux from 'redux';
 import thunk from 'redux-thunk';
 
+import alertReducer from '../reducers/alertReducer.jsx';
 import authReducer from '../reducers/authReducer.jsx';
 import calendarsReducer from '../reducers/calendarsReducer.jsx';
 
@@ -8,6 +9,7 @@ export const store = configureStore();
 
 function configureStore() {
   const reducer = redux.combineReducers({
+    alert: alertReducer,
     auth: authReducer,
     calendar: calendarsReducer
   });
