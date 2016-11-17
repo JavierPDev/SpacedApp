@@ -73,6 +73,12 @@ class Nav extends React.Component {
               onTouchTap={this.toggleNav}
             />
           </Link>
+          <Link to="/test" activeClassName="active">
+            <MenuItem
+              primaryText="Test"
+              onTouchTap={this.toggleNav}
+            />
+          </Link>
           {renderLogout()}
           <div className="full-height"></div>
         </Drawer>

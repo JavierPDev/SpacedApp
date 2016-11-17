@@ -26,15 +26,12 @@ class Login extends React.Component {
 
   render() {
     return (
-      <div className="callout text-center">
-        <h2>Login</h2>
         <RaisedButton
           label="Login with google"
           primary={true}
           onClick={this.handleLoginClick}
           icon={<Person />}
         />
-      </div>
     );
   }
 }

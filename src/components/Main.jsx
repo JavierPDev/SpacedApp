@@ -7,12 +7,14 @@ export default function Main(props) {
   return (
     <div>
       <Nav />
+      <div className="container">
       <div className="row" style={{marginTop: '30px'}}>
-        <div className="columns small-12 medium-6 small-centered">
+        <div className="col-sm-12 col-md-8">
           {props.children}
         </div>
       </div>
       <Alert />
+      </div>
     </div>
   );
 }
