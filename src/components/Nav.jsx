@@ -47,7 +47,7 @@ class Nav extends React.Component {
     return (
       <div>
         <AppBar
-          title="Spaced"
+          title={this.props.appbarTitle}
           onLeftIconButtonTouchTap={this.toggleNav}
         />
         <Drawer
@@ -83,6 +83,7 @@ class Nav extends React.Component {
 
 export default connect((state) => {
   return {
-    auth: state.auth
+    auth: state.auth,
+    appbarTitle: state.appbarTitle
   };
 })(Nav);

@@ -8,11 +8,16 @@ import RaisedButton from 'material-ui/RaisedButton';
 import Person from 'material-ui/svg-icons/social/person';
 
 import { startAuthFlow } from 'authActions';
+import { setAppbarTitle } from 'appbarTitleActions';
 
 class Login extends React.Component {
   constructor(props) {
     super(props);
     this.handleLoginClick = this.handleLoginClick.bind(this);
+  }
+
+  componentDidMount() {
+    this.props.dispatch(setAppbarTitle('Login'));
   }
 
   handleLoginClick() {
