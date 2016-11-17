@@ -13,18 +13,8 @@ export const routes = (
     <Route path="/" component={Main}>
       <IndexRoute component={Home} />
       <Route path="about" component={About} />
-      <Route path="events" component={EventsList} onEnter={requireLogin} />
+      <Route path="events" component={EventsList} />
       <Route path="login" component={Login} />
     </Route>
   </Router>
 );
-
-function requireLogin(nextState, replace, next) {
-  const state = store.getState();
-
-  if (!state.auth) {
-    replace('/login');
-  }
-
-  next();
-}

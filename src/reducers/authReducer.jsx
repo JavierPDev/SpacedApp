@@ -1,5 +1,3 @@
-import { initiateAuthFlow } from '../auth/google';
-
 export default function authReducer(state = null, action) {
   switch (action.type) {
     case 'GRANT_AUTHORIZATION':
