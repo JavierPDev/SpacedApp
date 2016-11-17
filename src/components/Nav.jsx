@@ -8,21 +8,26 @@ import Event from 'material-ui/svg-icons/action/event';
 import Info from 'material-ui/svg-icons/action/info';
 import PersonOutline from 'material-ui/svg-icons/social/person-outline';
 
-import { toggleNavOpen } from 'navActions';
 import { logout } from 'authActions';
 
 class Nav extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      navOpen: false
+    };
+
     this.toggleNav = this.toggleNav.bind(this);
-    this.handleLogout = this.handleLogout.bind(this);
+    this.onLogoutTouch = this.onLogoutTouch.bind(this);
   }
 
   toggleNav() {
-    this.props.dispatch(toggleNavOpen());
+    this.setState({
+      navOpen: !this.state.navOpen
+    });
   }
 
-  handleLogout() {
+  onLogoutTouch() {
     this.props.dispatch(logout());
     this.toggleNav();
   }
@@ -33,7 +38,7 @@ class Nav extends React.Component {
       return <MenuItem
         primaryText="Logout"
         leftIcon={<PersonOutline />}
-        onTouchTap={this.handleLogout}
+        onTouchTap={this.onLogoutTouch}
       />;
     };
 
@@ -44,7 +49,7 @@ class Nav extends React.Component {
           onLeftIconButtonTouchTap={this.toggleNav}
         />
         <Drawer
-          open={this.props.nav.open}
+          open={this.state.navOpen}
           docked={false}
           onRequestChange={this.toggleNav}
         >
@@ -76,7 +81,6 @@ class Nav extends React.Component {
 
 export default connect((state) => {
   return {
-    auth: state.auth,
-    nav: state.nav
+    auth: state.auth
   };
 })(Nav);

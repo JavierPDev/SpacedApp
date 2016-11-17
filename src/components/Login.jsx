@@ -7,7 +7,6 @@ import MenuItem from 'material-ui/MenuItem';
 import Person from 'material-ui/svg-icons/social/person';
 
 import { startAuthFlow } from 'authActions';
-import { toggleNavOpen } from 'navActions';
 
 class Login extends React.Component {
   constructor(props) {
