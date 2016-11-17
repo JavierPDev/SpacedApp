@@ -9,7 +9,7 @@ const style = {
   right: '8%'
 };
 
-class AddEvent extends React.Component {
+class AddEventButton extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -27,4 +27,4 @@ class AddEvent extends React.Component {
   }
 }
 
-export default connect()(AddEvent);
+export default connect()(AddEventButton);

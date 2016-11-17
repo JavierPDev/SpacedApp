@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import { getEvents } from '../api/events';
-import AddEvent from 'AddEvent';
+import AddEventButton from 'AddEventButton';
 import { setAppbarTitle } from 'appbarTitleActions';
 
 class EventsList extends React.Component {
@@ -24,7 +24,7 @@ class EventsList extends React.Component {
       <div>
         <h1>Events List</h1>
         <p>This is the Events page</p>
-        <AddEvent />
+        <AddEventButton />
       </div>
     );
   }
