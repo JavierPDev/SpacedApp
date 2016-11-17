@@ -1,8 +1,8 @@
 {
   "development": {
-    "GOOGLE_OAUTH_CLIENT_ID": ""
+    "GOOGLE_OAUTH_CLIENT_ID": "799550972404-p4i6pkpu5jvjfah8dfaqi9lot6igs4f4.apps.googleusercontent.com"
   },
   "production": {
-    "GOOGLE_OAUTH_CLIENT_ID": ""
+    "GOOGLE_OAUTH_CLIENT_ID": "799550972404-p4i6pkpu5jvjfah8dfaqi9lot6igs4f4.apps.googleusercontent.com"
   }
 }

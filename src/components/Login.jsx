@@ -4,6 +4,7 @@ import { Link, IndexLink } from 'react-router';
 import AppBar from 'material-ui/AppBar';
 import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/MenuItem';
+import RaisedButton from 'material-ui/RaisedButton';
 import Person from 'material-ui/svg-icons/social/person';
 
 import { startAuthFlow } from 'authActions';
@@ -22,9 +23,12 @@ class Login extends React.Component {
     return (
       <div className="callout text-center">
         <h2>Login</h2>
-        <button className="button" onClick={this.handleLoginClick}>
-          <Person /> Login with Google
-        </button>
+        <RaisedButton
+          label="Login with google"
+          primary={true}
+          onClick={this.handleLoginClick}
+          icon={<Person />}
+        />
       </div>
     );
   }
