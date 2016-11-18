@@ -7,15 +7,25 @@ import About from 'About';
 import Login from 'Login';
 import Test from 'Test';
 import EventsList from 'EventsList';
+import NewEventForm from 'NewEventForm';
 
 export const routes = (
   <Router history={browserHistory}>
     <Route path="/" component={Main}>
       <IndexRoute component={EventsList} />
       <Route path="about" component={About} />
-      <Route path="events" component={EventsList} />
+      <Route path="events" component={EventsList} onEnter={requireLogin} />
+      <Route path="events/new" component={NewEventForm} onEnter={requireLogin} />
       <Route path="login" component={Login} />
       <Route path="test" component={Test} />
     </Route>
   </Router>
 );
+
+function requireLogin(nextState, replace, next) {
+  const auth = store.getState().auth;
+  if (!auth) {
+    replace('/login');
+  }
+  next();
+}
