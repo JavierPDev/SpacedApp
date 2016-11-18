@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Link, IndexLink } from 'react-router';
+import { Link, IndexLink, browserHistory } from 'react-router';
 import AppBar from 'material-ui/AppBar';
 import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/MenuItem';
@@ -14,6 +14,12 @@ class Login extends React.Component {
   constructor(props) {
     super(props);
     this.handleLoginClick = this.handleLoginClick.bind(this);
+  }
+
+  componentWillUpdate(nextProps) {
+    if (nextProps.auth) {
+      browserHistory.push('/events');
+    }
   }
 
   componentDidMount() {

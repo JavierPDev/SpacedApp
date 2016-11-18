@@ -31,7 +31,6 @@ export function startAuthFlow() {
 }
 
 export function grantAuthorization(authResult) {
-  browserHistory.push('/events');
   return {
     type: 'GRANT_AUTHORIZATION',
     authResult
