@@ -2,6 +2,7 @@ import React from 'react';
 
 import Nav from 'Nav';
 import Alert from 'Alert';
+import LoadingIcon from 'LoadingIcon';
 
 export default function Main(props) {
   return (
@@ -14,6 +15,7 @@ export default function Main(props) {
         </div>
       </div>
       <Alert />
+      <LoadingIcon />
       </div>
     </div>
   );

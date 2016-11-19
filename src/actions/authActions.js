@@ -3,28 +3,35 @@ import { browserHistory } from 'react-router';
 import * as auth from '../auth/google';
 import { startCalendarRetrieval } from 'calendarActions';
 import { displayAlert } from 'alertActions';
+import { displayLoadingIcon, hideLoadingIcon } from 'loadingIconActions';
 
 export function startAuthCheck() {
   return (dispatch, getState) => {
+    dispatch(displayLoadingIcon());
     return auth.checkAuthorization()
       .then((authResult) => {
         dispatch(grantAuthorization(authResult));
         dispatch(startCalendarRetrieval());
+        dispatch(hideLoadingIcon());
       }, () => {
         dispatch(denyAuthorization());
+        dispatch(hideLoadingIcon());
       });
   };
 }
 
 export function startAuthFlow() {
   return (dispatch, getState) => {
+    dispatch(displayLoadingIcon());
     return auth.initiateAuthFlow()
       .then((authResult) => {
         dispatch(grantAuthorization(authResult));
         dispatch(startCalendarRetrieval());
+        dispatch(hideLoadingIcon());
         dispatch(displayAlert('Logged in'));
       }, () => {
         dispatch(denyAuthorization());
+        dispatch(hideLoadingIcon());
         dispatch(displayAlert('Couldn\'t login'));
       });
   };

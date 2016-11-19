@@ -13,6 +13,11 @@ export default {
         test: /\.html$/,
         exclude: /node_modules/,
         loader: 'raw-loader'
+      },
+      {
+        test: /\.(png|jpg|gif)$/,
+        exclude: /node_modules/,
+        loader: 'file-loader'
       }
     ],
     preloaders: [
