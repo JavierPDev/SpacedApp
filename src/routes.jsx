@@ -2,7 +2,7 @@ import React from 'react';
 import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 
 import { store } from './store';
-import Main from 'Main';
+import App from 'App';
 import About from 'About';
 import Login from 'Login';
 import Test from 'Test';
@@ -11,7 +11,7 @@ import NewEventForm from 'NewEventForm';
 
 export const routes = (
   <Router history={browserHistory}>
-    <Route path="/" component={Main}>
+    <Route path="/" component={App}>
       <IndexRoute component={EventsList} />
       <Route path="about" component={About} />
       <Route path="events" component={EventsList} onEnter={requireLogin} />

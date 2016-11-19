@@ -4,7 +4,7 @@ import Nav from 'Nav';
 import Alert from 'Alert';
 import LoadingIcon from 'LoadingIcon';
 
-export default function Main(props) {
+export default function App(props) {
   return (
     <div>
       <Nav />
