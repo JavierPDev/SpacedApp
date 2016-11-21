@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { startEventsRetrieval } from 'eventActions';
+import { startEventsRetrieval } from 'eventsActions';
 import AddEventButton from 'AddEventButton';
 import { setAppbarTitle } from 'appbarTitleActions';
 import EventListItem from 'EventListItem';
