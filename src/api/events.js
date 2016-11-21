@@ -11,9 +11,39 @@ export function getEvents(calendarId) {
         'orderBy': 'startTime'
       })
         .execute(function(resp) {
-          var events = resp.items;
+          const events = resp.items;
           console.log('events', events);
           resolve(events);
+      });
+    });
+  }) ;
+}
+
+export function createEvent(calendarId, event) {
+  return new Promise((resolve, reject) => {
+    gapi.client.load('calendar', 'v3', () => {
+      gapi.client.calendar.events.insert({
+        'calendarId': calendarId,
+        ...event
+      })
+        .execute(function(savedEvent) {
+          console.log('newly saved event', savedEvent);
+          resolve(savedEvent);
+      });
+    });
+  }) ;
+}
+
+export function deleteEvent(calendarId, eventId) {
+  return new Promise((resolve, reject) => {
+    gapi.client.load('calendar', 'v3', () => {
+      gapi.client.calendar.events.delete({
+        'calendarId': calendarId,
+        'eventId': eventId
+      })
+        .execute(function(res) {
+          console.log('deleted, res:', res);
+          resolve(res);
       });
     });
   }) ;

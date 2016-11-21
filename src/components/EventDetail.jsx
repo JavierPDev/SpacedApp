@@ -1,10 +1,11 @@
 import React from 'react';
-import { Link } from 'react-router';
+import { browserHistory } from 'react-router';
 import { connect } from 'react-redux';
 import { Card, CardActions, CardTitle, CardText } from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
 
 import { setAppbarTitle } from 'appbarTitleActions';
+import { startEventDeletion } from 'eventActions';
 import BackButton from 'BackButton';
 
 class EventDetail extends React.Component {
@@ -14,10 +15,18 @@ class EventDetail extends React.Component {
     this.state = {
       event: props.events.find((event) => event.id === eventId)
     };
+    this.handleDeleteClick = this.handleDeleteClick.bind(this);
   }
 
   componentDidMount() {
     this.props.dispatch(setAppbarTitle(this.state.event.summary));
+  }
+
+  handleDeleteClick(e) {
+    this.props.dispatch(startEventDeletion(this.state.event.id))
+      .then(() => {
+        browserHistory.push('/events');
+      });
   }
 
   render() {
@@ -32,9 +41,10 @@ class EventDetail extends React.Component {
             {description}
           </CardText>
           <CardActions>
-            <Link to={`/events/${id}`}>
-              <FlatButton label="View Event" />
-            </Link>
+            <FlatButton
+              label="Delete Event"
+              onClick={this.handleDeleteClick}
+            />
           </CardActions>
         </Card>
         <br />

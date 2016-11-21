@@ -6,6 +6,7 @@ import appbarTitleReducer from '../reducers/appbarTitleReducer';
 import authReducer from '../reducers/authReducer';
 import calendarsReducer from '../reducers/calendarsReducer';
 import eventsReducer from '../reducers/eventsReducer';
+import eventReducer from '../reducers/eventReducer';
 import loadingIconReducer from '../reducers/loadingIconReducer';
 
 export const store = configureStore();
@@ -15,6 +16,7 @@ function configureStore() {
     alert: alertReducer,
     appbarTitle: appbarTitleReducer,
     auth: authReducer,
+    event: eventReducer,
     events: eventsReducer,
     calendar: calendarsReducer,
     loadingIcon: loadingIconReducer

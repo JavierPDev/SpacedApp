@@ -1,9 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { browserHistory } from 'react-router';
+import moment from 'moment';
 import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
 
 import { setAppbarTitle } from 'appbarTitleActions';
+import { startEventCreation } from 'eventActions';
 import BackButton from 'BackButton';
 
 class NewEventForm extends React.Component {
@@ -19,12 +22,21 @@ class NewEventForm extends React.Component {
   handleSubmit(event) {
     event.preventDefault()
 
-    let data = {
-      title: this.refs.title.input.value,
-      description: this.refs.description.input.value
+    const data = {
+      summary: this.refs.title.input.value,
+      description: this.refs.description.input.value,
+      start: {
+        date: moment().format('YYYY-MM-DD'),
+        timeZone: 'US/Central'
+      },
+      end: {
+        date: moment().format('YYYY-MM-DD'),
+        timeZone: 'US/Central'
+      }
     };
 
-    console.log('form data', data);
+    this.props.dispatch(startEventCreation(data))
+      .then((res) => browserHistory.push('/events'));
   }
 
   render() {
@@ -53,4 +65,8 @@ class NewEventForm extends React.Component {
   }
 }
 
-export default connect()(NewEventForm);
+export default connect((state) => {
+  return {
+    event: state.event
+  };
+})(NewEventForm);
