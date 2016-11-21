@@ -4,6 +4,7 @@ import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
 
 import { setAppbarTitle } from 'appbarTitleActions';
+import GoBackButton from 'GoBackButton';
 
 class NewEventForm extends React.Component {
   constructor(props) {
@@ -28,23 +29,26 @@ class NewEventForm extends React.Component {
 
   render() {
     return (
-      <form onSubmit={this.handleSubmit}>
-        <TextField
-          hintText="Enter title here"
-          floatingLabelText="Title"
-          name="title"
-          ref="title"
-        />
-        <br />
-        <TextField
-          hintText="Enter description here"
-          floatingLabelText="Description"
-          name="description"
-          ref="description"
-        />
-        <br />
-        <FlatButton label="Add New Event" primary={true} type="submit" />
-      </form>
+      <div>
+        <GoBackButton />
+        <form onSubmit={this.handleSubmit}>
+          <TextField
+            hintText="Enter title here"
+            floatingLabelText="Title"
+            name="title"
+            ref="title"
+          />
+          <br />
+          <TextField
+            hintText="Enter description here"
+            floatingLabelText="Description"
+            name="description"
+            ref="description"
+          />
+          <br />
+          <FlatButton label="Add New Event" primary={true} type="submit" />
+        </form>
+      </div>
     );
   }
 }
