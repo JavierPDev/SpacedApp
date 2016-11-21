@@ -5,9 +5,9 @@ import { Card, CardActions, CardTitle, CardText } from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
 
 import { setAppbarTitle } from 'appbarTitleActions';
-import GoBackButton from 'GoBackButton';
+import BackButton from 'BackButton';
 
-class Event extends React.Component {
+class EventDetail extends React.Component {
   constructor(props) {
     super(props);
     const eventId = props.params.eventId;
@@ -25,7 +25,7 @@ class Event extends React.Component {
 
     return (
       <div>
-        <GoBackButton />
+        <BackButton />
         <Card>
           <CardTitle title={summary} subtitle={created} />
           <CardText>
@@ -47,4 +47,4 @@ export default connect((state) => {
   return {
     events: state.events
   };
-})(Event);
+})(EventDetail);
