@@ -27,9 +27,8 @@ export function finishCalendarRetrieval(calendar) {
   };
 }
 
-export function failCalendarRetrieval(calendar) {
+export function failCalendarRetrieval() {
   return {
-    type: 'FAIL_CALENDAR_RETRIEVAL',
-    calendar
+    type: 'FAIL_CALENDAR_RETRIEVAL'
   };
 }

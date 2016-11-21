@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { getEvents } from '../api/events';
+import { startEventsRetrieval } from 'eventActions';
 import AddEventButton from 'AddEventButton';
 import { setAppbarTitle } from 'appbarTitleActions';
 
@@ -12,14 +12,10 @@ class EventsList extends React.Component {
 
   componentDidMount() {
     this.props.dispatch(setAppbarTitle('Events'));
-  }
-
-  retrieveEvents() {
+    this.props.dispatch(startEventsRetrieval());
   }
 
   render() {
-    this.retrieveEvents();
-
     return (
       <div>
         <h1>Events List</h1>
@@ -30,4 +26,8 @@ class EventsList extends React.Component {
   }
 }
 
-export default connect()(EventsList);
+export default connect((state) => {
+  return {
+    events: state.events
+  };
+})(EventsList);

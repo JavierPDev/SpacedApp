@@ -19,6 +19,7 @@ export function getCalendar() {
           if (appCalendar) {
             resolve(appCalendar);
           } else {
+            // Create new app calendar if it doesn't exist 
             gapi.client.calendar.calendars.insert({summary: CALENDAR_NAME})
               .execute((res) => {
                 console.log('created calendar', res);

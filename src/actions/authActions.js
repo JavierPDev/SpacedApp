@@ -8,10 +8,10 @@ import { displayLoadingIcon, hideLoadingIcon } from 'loadingIconActions';
 export function startAuthCheck() {
   return (dispatch, getState) => {
     dispatch(displayLoadingIcon());
+
     return auth.checkAuthorization()
       .then((authResult) => {
         dispatch(grantAuthorization(authResult));
-        dispatch(startCalendarRetrieval());
         dispatch(hideLoadingIcon());
       }, () => {
         dispatch(denyAuthorization());
@@ -23,10 +23,10 @@ export function startAuthCheck() {
 export function startAuthFlow() {
   return (dispatch, getState) => {
     dispatch(displayLoadingIcon());
+
     return auth.initiateAuthFlow()
       .then((authResult) => {
         dispatch(grantAuthorization(authResult));
-        dispatch(startCalendarRetrieval());
         dispatch(hideLoadingIcon());
         dispatch(displayAlert('Logged in'));
       }, () => {
