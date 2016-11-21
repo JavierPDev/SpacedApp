@@ -4,7 +4,7 @@ import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
 
 import { setAppbarTitle } from 'appbarTitleActions';
-import GoBackButton from 'GoBackButton';
+import BackButton from 'BackButton';
 
 class NewEventForm extends React.Component {
   constructor(props) {
@@ -30,7 +30,7 @@ class NewEventForm extends React.Component {
   render() {
     return (
       <div>
-        <GoBackButton />
+        <BackButton />
         <form onSubmit={this.handleSubmit}>
           <TextField
             hintText="Enter title here"
