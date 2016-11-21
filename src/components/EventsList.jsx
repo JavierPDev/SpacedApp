@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { startEventsRetrieval } from 'eventActions';
 import AddEventButton from 'AddEventButton';
 import { setAppbarTitle } from 'appbarTitleActions';
+import EventListItem from 'EventListItem';
 
 class EventsList extends React.Component {
   constructor(props) {
@@ -15,11 +16,20 @@ class EventsList extends React.Component {
     this.props.dispatch(startEventsRetrieval());
   }
 
+  renderList() {
+    const {events} = this.props;
+
+    if (events) {
+      return events.map((event) => <EventListItem key={event.id} {...event} />);
+    } else {
+      return null;
+    }
+  }
+
   render() {
     return (
       <div>
-        <h1>Events List</h1>
-        <p>This is the Events page</p>
+        {this.renderList()}
         <AddEventButton />
       </div>
     );

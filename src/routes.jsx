@@ -7,6 +7,7 @@ import About from 'About';
 import Login from 'Login';
 import Test from 'Test';
 import EventsList from 'EventsList';
+import Event from 'Event';
 import NewEventForm from 'NewEventForm';
 
 export const routes = (
@@ -16,6 +17,7 @@ export const routes = (
       <Route path="about" component={About} />
       <Route path="events" component={EventsList} onEnter={requireLogin} />
       <Route path="events/new" component={NewEventForm} onEnter={requireLogin} />
+      <Route path="events/:eventId" component={Event} onEnter={requireLogin} />
       <Route path="login" component={Login} />
       <Route path="test" component={Test} />
     </Route>
