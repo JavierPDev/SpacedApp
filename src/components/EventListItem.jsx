@@ -5,21 +5,20 @@ import FlatButton from 'material-ui/FlatButton';
 
 export default function EventListItem(props) {
   const {summary, created, realDescription, spacedId} = props;
+  const url = `/events/${spacedId}`;
 
   return (
-    <div>
+    <Link to={url} style={{textDecoration: 'none'}}>
       <Card>
         <CardTitle title={summary} subtitle={created} />
         <CardText>
           {realDescription}
         </CardText>
         <CardActions>
-          <Link to={`/events/${spacedId}`}>
-            <FlatButton label="View Event" />
-          </Link>
+          <FlatButton label="View Event" />
         </CardActions>
       </Card>
       <br />
-    </div>
+    </Link>
   );
 }
