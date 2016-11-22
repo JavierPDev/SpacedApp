@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { browserHistory } from 'react-router';
+import { Link } from 'react-router';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
 
@@ -15,15 +15,13 @@ class AddEventButton extends React.Component {
     super(props);
   }
 
-  onAddEvent() {
-    browserHistory.push('/events/new');
-  }
-
   render() {
     return (
-      <FloatingActionButton style={style} onClick={this.onAddEvent}>
-        <ContentAdd />
-      </FloatingActionButton>
+      <Link to="/events/new" style={style}>
+        <FloatingActionButton>
+          <ContentAdd />
+        </FloatingActionButton>
+      </Link>
     );
   }
 }
