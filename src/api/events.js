@@ -15,7 +15,7 @@ export function getSpacedEvents(calendarId) {
       let spacedIds = [];
 
       for (const event of events) {
-        let descArray = event.description.split('SPACED_APP_DATA: ');
+        let descArray = event.description.split(' SPACED_APP_DATA: ');
         const realDescription = descArray[0];
         const spacedAppData = JSON.parse(descArray[1]);
         const {spacedId} = spacedAppData;
@@ -70,7 +70,7 @@ export function createSpacedEvent(calendarId, event, dates) {
       date: date,
       timeZone: 'US/Central'
     };
-    newEvent.description += 'SPACED_APP_DATA: '+JSON.stringify(spacedAppData);
+    newEvent.description += ' SPACED_APP_DATA: '+JSON.stringify(spacedAppData);
     promises.push(createGoogleCalendarEvent(calendarId, newEvent));
   } 
 
