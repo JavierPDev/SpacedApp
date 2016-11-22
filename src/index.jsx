@@ -5,9 +5,9 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 import { store } from './store';
-import About from 'About';
-import { routes } from './routes';
+import { routes } from './config/routes';
 import { startAuthCheck } from 'authActions';
+import { muiTheme } from './config/muiTheme';
 
 import './main.scss';
 
@@ -21,7 +21,7 @@ store.dispatch(startAuthCheck());
 
 ReactDOM.render(
   <Provider store={store}>
-    <MuiThemeProvider>
+    <MuiThemeProvider muiTheme={muiTheme}>
       {routes}
     </MuiThemeProvider>
   </Provider>,

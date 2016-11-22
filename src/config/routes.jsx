@@ -1,7 +1,7 @@
 import React from 'react';
 import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 
-import { store } from './store';
+import { store } from '../store';
 import App from 'App';
 import About from 'About';
 import Login from 'Login';
