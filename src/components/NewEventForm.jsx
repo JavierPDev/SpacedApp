@@ -25,17 +25,15 @@ class NewEventForm extends React.Component {
     const data = {
       summary: this.refs.title.input.value,
       description: this.refs.description.input.value,
-      start: {
-        date: moment().format('YYYY-MM-DD'),
-        timeZone: 'US/Central'
-      },
-      end: {
-        date: moment().format('YYYY-MM-DD'),
-        timeZone: 'US/Central'
-      }
     };
 
-    this.props.dispatch(startEventCreation(data))
+    const dates = [
+      moment().add(24, 'hours').format('YYYY-MM-DD'),
+      moment().add(72, 'hours').format('YYYY-MM-DD'),
+      moment().add(120, 'hours').format('YYYY-MM-DD')
+    ];
+
+    this.props.dispatch(startEventCreation(data, dates))
       .then((res) => browserHistory.push('/events'));
   }
 

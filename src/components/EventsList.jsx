@@ -20,7 +20,7 @@ class EventsList extends React.Component {
     const {events} = this.props;
 
     if (events) {
-      return events.map((event) => <EventListItem key={event.id} {...event} />);
+      return events.map((event) => <EventListItem key={event.spacedId} {...event} />);
     } else {
       return null;
     }

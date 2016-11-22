@@ -1,24 +1,23 @@
 import { browserHistory } from 'react-router';
 
-import { createEvent, deleteEvent } from '../api/events';
+import { createSpacedEvent, deleteSpacedEvent } from '../api/events';
 import { getCalendar } from '../api/calendars';
 import { displayAlert } from 'alertActions';
 import { displayLoadingIcon, hideLoadingIcon } from 'loadingIconActions';
 
-export function startEventCreation(event) {
+export function startEventCreation(event, dates) {
   return (dispatch, getState) => {
     dispatch(displayLoadingIcon());
 
     return new Promise((resolve, reject) => {
       getCalendar()
         .then((calendar) => {
-          return createEvent(calendar.id, event)
-            .then((createdEvent) => {
-              console.log('action createdEvent', createdEvent);
-              dispatch(finishEventCreation(createdEvent));
+          return createSpacedEvent(calendar.id, event, dates)
+            .then((createdEvents) => {
+              dispatch(finishEventCreation(createdEvents));
               dispatch(hideLoadingIcon());
               dispatch(displayAlert('Event created'));
-              resolve(createdEvent);
+              resolve(createdEvents);
             }, () => {
               dispatch(hideLoadingIcon());
               dispatch(failEventCreation());
@@ -43,14 +42,14 @@ export function failEventCreation() {
   };
 }
 
-export function startEventDeletion(eventId) {
+export function startEventDeletion(event) {
   return (dispatch, getState) => {
     dispatch(displayLoadingIcon());
 
     return new Promise((resolve, reject) => {
       getCalendar()
         .then((calendar) => {
-          return deleteEvent(calendar.id, eventId)
+          return deleteSpacedEvent(calendar.id, event)
             .then(() => {
               dispatch(finishEventDeletion());
               dispatch(hideLoadingIcon());

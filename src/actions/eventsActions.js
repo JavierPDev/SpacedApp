@@ -1,6 +1,6 @@
 import { browserHistory } from 'react-router';
 
-import { getEvents } from '../api/events';
+import { getSpacedEvents } from '../api/events';
 import { getCalendar } from '../api/calendars';
 import { displayAlert } from 'alertActions';
 import { displayLoadingIcon, hideLoadingIcon } from 'loadingIconActions';
@@ -11,7 +11,7 @@ export function startEventsRetrieval() {
 
     getCalendar()
       .then((calendar) => {
-        return getEvents(calendar.id)
+        return getSpacedEvents(calendar.id)
           .then((events) => {
             dispatch(finishEventsRetrieval(events));
             dispatch(hideLoadingIcon());

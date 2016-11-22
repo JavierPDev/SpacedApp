@@ -1,6 +1,100 @@
-import { store } from '../store';
+import uuid from 'uuid';
 
-export function getEvents(calendarId) {
+/**
+ * Get spaced events using google calendar api. Multiple calendar events with
+ * the same spacedId represented as one spacedEvent, return all of such spaced
+ * events.
+ *
+ * @param {String} calendarId - Google calendar id
+ * @return {Promise} - Resolve with spaced events
+ */
+export function getSpacedEvents(calendarId) {
+  return getGoogleCalendarEvents(calendarId)
+    .then((events) => {
+      let spacedEvents = [];
+      let spacedIds = [];
+
+      for (const event of events) {
+        let descArray = event.description.split('SPACED_APP_DATA: ');
+        const realDescription = descArray[0];
+        const spacedAppData = JSON.parse(descArray[1]);
+        const {spacedId} = spacedAppData;
+
+        if (!spacedIds.includes(spacedId)) {
+          spacedIds.push(spacedId);
+          let spacedEvent = {...event};
+          spacedEvent.spacedId = spacedId;
+          spacedEvent.realDescription = realDescription;
+          spacedEvent.googleCalendarData = {
+            eventIds: [spacedEvent.id],
+            dates: [spacedAppData.date]
+          }
+          spacedEvents.push(spacedEvent);
+        } else {
+          for (const spacedEvent of spacedEvents) {
+            if (spacedId === spacedEvent.spacedId) {
+              spacedEvent.googleCalendarData.dates.push(spacedAppData.date);
+              spacedEvent.googleCalendarData.eventIds.push(event.id);
+            }
+          }
+        }
+      }
+
+      return spacedEvents;
+    }, () => null);
+}
+
+/**
+ * Create multiple google calendar events using single spacedEvent data. All 
+ * resulting events will have different dates (arg date). Each have the same 
+ * spacedId saved in SPACED_APP_DATA json in event description.
+ *
+ * @param {String} calendarId - Google calendar id
+ * @param {Object} event - Event data to save
+ * @param {Array} dates - Array of dates that event will take place on
+ * @return {Promise} - Resolve with http response data
+ */
+export function createSpacedEvent(calendarId, event, dates) {
+  let events = [];
+  let promises = [];
+  const spacedId = uuid();
+
+  for (const date of dates) {
+    let newEvent = {...event};
+    const spacedAppData = {spacedId, date};
+    newEvent.start = {
+      date: date,
+      timeZone: 'US/Central'
+    };
+    newEvent.end = {
+      date: date,
+      timeZone: 'US/Central'
+    };
+    newEvent.description += 'SPACED_APP_DATA: '+JSON.stringify(spacedAppData);
+    promises.push(createGoogleCalendarEvent(calendarId, newEvent));
+  } 
+
+  return Promise.all(promises);
+}
+
+/**
+ * Delete spaced event by deleting all google calendar events it is made of.
+ *
+ * @param {String} calendarId - Google calendar id
+ * @param {Object} spacedEvent - Spaced event with custom data
+ * @return {Promise} - Resolve with data from all delete responses
+ */
+export function deleteSpacedEvent(calendarId, spacedEvent) {
+  let promises = [];
+
+  for (const eventId of spacedEvent.googleCalendarData.eventIds) {
+    promises.push(deleteGoogleCalendarEvent(calendarId, eventId));
+  }
+
+  return Promise.all(promises);
+}
+
+function getGoogleCalendarEvents(calendarId) {
   return new Promise((resolve, reject) => {
     gapi.client.load('calendar', 'v3', () => {
       gapi.client.calendar.events.list({
@@ -16,10 +110,10 @@ export function getEvents(calendarId) {
           resolve(events);
       });
     });
-  }) ;
+  });
 }
 
-export function createEvent(calendarId, event) {
+function createGoogleCalendarEvent(calendarId, event) {
   return new Promise((resolve, reject) => {
     gapi.client.load('calendar', 'v3', () => {
       gapi.client.calendar.events.insert({
@@ -31,10 +125,10 @@ export function createEvent(calendarId, event) {
           resolve(savedEvent);
       });
     });
-  }) ;
+  });
 }
 
-export function deleteEvent(calendarId, eventId) {
+function deleteGoogleCalendarEvent(calendarId, eventId) {
   return new Promise((resolve, reject) => {
     gapi.client.load('calendar', 'v3', () => {
       gapi.client.calendar.events.delete({
@@ -42,9 +136,13 @@ export function deleteEvent(calendarId, eventId) {
         'eventId': eventId
       })
         .execute(function(res) {
-          console.log('deleted, res:', res);
-          resolve(res);
+          console.log('deleted res:', res);
+          if (res.error) {
+            reject(res);
+          } else {
+            resolve(res);
+          }
       });
     });
-  }) ;
+  });
 }

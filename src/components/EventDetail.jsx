@@ -13,7 +13,7 @@ class EventDetail extends React.Component {
     super(props);
     const eventId = props.params.eventId;
     this.state = {
-      event: props.events.find((event) => event.id === eventId)
+      event: props.events.find((event) => event.spacedId === eventId)
     };
     this.handleDeleteClick = this.handleDeleteClick.bind(this);
   }
@@ -23,14 +23,14 @@ class EventDetail extends React.Component {
   }
 
   handleDeleteClick(e) {
-    this.props.dispatch(startEventDeletion(this.state.event.id))
+    this.props.dispatch(startEventDeletion(this.state.event))
       .then(() => {
         browserHistory.push('/events');
       });
   }
 
   render() {
-    const {summary, created, description, id} = this.state.event;
+    const {summary, created, realDescription} = this.state.event;
 
     return (
       <div>
@@ -38,7 +38,7 @@ class EventDetail extends React.Component {
         <Card>
           <CardTitle title={summary} subtitle={created} />
           <CardText>
-            {description}
+            {realDescription}
           </CardText>
           <CardActions>
             <FlatButton
