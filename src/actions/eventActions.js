@@ -22,6 +22,7 @@ export function startEventCreation(event) {
             }, () => {
               dispatch(hideLoadingIcon());
               dispatch(failEventCreation());
+              dispatch(displayAlert('Request failed'));
               reject();
             });
         });
@@ -58,6 +59,7 @@ export function startEventDeletion(eventId) {
             }, () => {
               dispatch(hideLoadingIcon());
               dispatch(failEventDeletion());
+              dispatch(displayAlert('Request failed'));
               reject();
             });
         });

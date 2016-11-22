@@ -16,6 +16,7 @@ export function startCalendarRetrieval() {
         }
       }, () => {
         dispatch(failCalendarRetrieval());
+        dispatch(displayAlert('Request failed'));
       });
   };
 }

@@ -18,6 +18,7 @@ export function startEventsRetrieval() {
           }, () => {
             dispatch(hideLoadingIcon());
             dispatch(failEventsRetrieval());
+            dispatch(displayAlert('Request failed'));
           });
       })
   };
