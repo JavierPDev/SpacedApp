@@ -10,7 +10,7 @@ export default function App(props) {
       <Nav />
       <div className="container">
       <div className="row" style={{marginTop: '30px'}}>
-        <div className="col-sm-12 col-md-8">
+        <div className="col-xs-12">
           {props.children}
         </div>
       </div>
