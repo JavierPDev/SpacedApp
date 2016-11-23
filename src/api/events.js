@@ -1,3 +1,4 @@
+import moment from 'moment';
 import uuid from 'uuid';
 
 /**
@@ -60,9 +61,10 @@ export function createSpacedEvent(calendarId, event, dates, reminder) {
   let promises = [];
   const spacedId = uuid();
 
-  for (const date of dates) {
+  for (let date of dates) {
     let newEvent = {...event};
     const spacedAppData = {spacedId, date};
+    date = moment(date).format('YYYY-MM-DD');
     newEvent.start = {date};
     newEvent.end = {date};
     newEvent.reminders = {

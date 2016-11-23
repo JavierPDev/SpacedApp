@@ -8,6 +8,7 @@ import {Tabs, Tab} from 'material-ui/Tabs';
 import { Card } from 'material-ui/Card';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
+import DatePicker from 'material-ui/DatePicker';
 
 import { setAppbarTitle } from 'appbarTitleActions';
 import { startEventCreation } from 'eventActions';
@@ -21,7 +22,15 @@ class NewEventForm extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleReminderMethodChange = this.handleReminderMethodChange.bind(this);
     this.handleReminderMinutesChange = this.handleReminderMinutesChange.bind(this);
-    this.state = {reminderMethod: 'popup', reminderMinutes: 3 * 60};
+    this.state = {
+      reminderMethod: 'popup',
+      reminderMinutes: 3 * 60,
+      dates: [
+        moment().add(24*3, 'hours').toDate(),
+        moment().add(24*7, 'hours').toDate(),
+        moment().add(24*14, 'hours').toDate()
+      ]
+    };
   }
 
   componentDidMount() {
@@ -36,18 +45,12 @@ class NewEventForm extends React.Component {
       description: this.refs.description.input.value,
     };
 
-    const dates = [
-      moment().add(24, 'seconds').format('YYYY-MM-DD'),
-      moment().add(72, 'hours').format('YYYY-MM-DD'),
-      moment().add(120, 'hours').format('YYYY-MM-DD')
-    ];
-
     const reminder = {
       method: this.state.reminderMethod,
       minutes: this.state.reminderMinutes
     };
 
-    this.props.dispatch(startEventCreation(data, dates, reminder))
+    this.props.dispatch(startEventCreation(data, this.state.dates, reminder))
       .then((res) => browserHistory.push('/events'));
   }
 
@@ -58,6 +61,25 @@ class NewEventForm extends React.Component {
   handleReminderMinutesChange(event, index, value) {
     this.setState({reminderMinutes: value});
   } 
+
+  renderDatePickers() {
+    let el = [];
+    this.state.dates.forEach((date, index) => {
+      el.push(
+        <DatePicker
+          hintText="Enter date"
+          key={index}
+          value={this.state.dates[index]}
+          onChange={(event, newDate) => {
+            let dates = this.state.dates;
+            dates[index] = newDate;
+            this.setState({dates});
+          }}
+        />
+      );
+    })
+    return el;
+  }
 
   render() {
     return (
@@ -81,6 +103,11 @@ class NewEventForm extends React.Component {
                     name="description"
                     ref="description"
                   />
+                </div>
+              </Tab>
+              <Tab label="Dates">
+                <div style={divStyle}>
+                  {this.renderDatePickers()}
                 </div>
               </Tab>
               <Tab label="Reminder">
