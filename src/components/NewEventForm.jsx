@@ -13,8 +13,18 @@ import DatePicker from 'material-ui/DatePicker';
 import { setAppbarTitle } from 'appbarTitleActions';
 import { startEventCreation } from 'eventActions';
 import BackButton from 'BackButton';
+import HelpBlock from 'HelpBlock';
 
-const divStyle = {paddingLeft: '40px', paddingBottom: '40px'};
+const styles = {
+  cardDiv: {
+    minHeight: '25vh',
+    paddingLeft: '40px',
+    paddingBottom: '40px'
+  },
+  helpBlock: {
+    marginTop: '30px'
+  }
+};
 
 class NewEventForm extends React.Component {
   constructor(props) {
@@ -89,49 +99,76 @@ class NewEventForm extends React.Component {
           <Card>
             <Tabs>
               <Tab label="Information">
-                <div style={divStyle}>
-                  <TextField
-                    hintText="Enter title here"
-                    floatingLabelText="Title"
-                    name="title"
-                    ref="title"
-                  />
-                  <br />
-                  <TextField
-                    hintText="Enter description here"
-                    floatingLabelText="Description"
-                    name="description"
-                    ref="description"
-                  />
+                <div style={styles.cardDiv}>
+                  <div className="row">
+                    <div className="col-xs-12 col-sm-6 push-sm-6">
+                      <HelpBlock style={styles.helpBlock}>
+                        Enter your information here.
+                      </HelpBlock>
+                    </div>
+                    <div className="col-xs-12 col-sm-6 pull-sm-6">
+                      <TextField
+                        hintText="Enter title here"
+                        floatingLabelText="Title"
+                        name="title"
+                        ref="title"
+                      />
+                      <br />
+                      <TextField
+                        hintText="Enter description here"
+                        floatingLabelText="Description"
+                        name="description"
+                        ref="description"
+                      />
+                    </div>
+                  </div>
                 </div>
               </Tab>
               <Tab label="Dates">
-                <div style={divStyle}>
-                  {this.renderDatePickers()}
+                <div style={styles.cardDiv}>
+                  <div className="row">
+                    <div className="col-xs-12 col-sm-6 push-sm-6">
+                      <HelpBlock style={styles.helpBlock}>
+                        Enter your information here.
+                      </HelpBlock>
+                    </div>
+                    <div className="col-xs-12 col-sm-6 pull-sm-6">
+                      {this.renderDatePickers()}
+                    </div>
+                  </div>
                 </div>
               </Tab>
               <Tab label="Reminder">
-                <div style={divStyle}>
-									<SelectField
-										floatingLabelText="Reminder Method"
-										value={this.state.reminderMethod}
-										onChange={this.handleReminderMethodChange}
-									>
-										<MenuItem value={'email'} primaryText="Email" />
-										<MenuItem value={'popup'} primaryText="Notification" />
-									</SelectField>
-                  <br />
-									<SelectField
-										floatingLabelText="Time"
-										value={this.state.reminderMinutes}
-										onChange={this.handleReminderMinutesChange}
-									>
-										<MenuItem value={15 * 60} primaryText="9am" />
-										<MenuItem value={12 * 60} primaryText="12pm" />
-										<MenuItem value={7 * 60} primaryText="5pm" />
-										<MenuItem value={3 * 60} primaryText="9pm" />
-										<MenuItem value={0} primaryText="12am" />
-									</SelectField>
+                <div style={styles.cardDiv}>
+                  <div className="row">
+                    <div className="col-xs-12 col-sm-6 push-sm-6">
+                      <HelpBlock style={styles.helpBlock}>
+                        Enter your information here.
+                      </HelpBlock>
+                    </div>
+                    <div className="col-xs-12 col-sm-6 pull-sm-6">
+                      <SelectField
+                        floatingLabelText="Reminder Method"
+                        value={this.state.reminderMethod}
+                        onChange={this.handleReminderMethodChange}
+                      >
+                        <MenuItem value={'email'} primaryText="Email" />
+                        <MenuItem value={'popup'} primaryText="Notification" />
+                      </SelectField>
+                      <br />
+                      <SelectField
+                        floatingLabelText="Time"
+                        value={this.state.reminderMinutes}
+                        onChange={this.handleReminderMinutesChange}
+                      >
+                        <MenuItem value={15 * 60} primaryText="9am" />
+                        <MenuItem value={12 * 60} primaryText="12pm" />
+                        <MenuItem value={7 * 60} primaryText="5pm" />
+                        <MenuItem value={3 * 60} primaryText="9pm" />
+                        <MenuItem value={0} primaryText="12am" />
+                      </SelectField>
+                    </div>
+                  </div>
                 </div>
               </Tab>
             </Tabs>
