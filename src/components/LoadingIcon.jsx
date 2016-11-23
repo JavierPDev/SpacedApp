@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import CircularProgress from 'material-ui/CircularProgress';
 
 import { setAppbarTitle } from 'appbarTitleActions';
 
@@ -13,9 +14,6 @@ const divStyle = {
   marginTop: '-75px'
 };
 
-const imgUrl = require('../../assets/loading.gif');
-const imgStyle = { width: '100%' };
-
 class LoadingIcon extends React.Component {
   constructor(props) {
     super(props);
@@ -25,7 +23,7 @@ class LoadingIcon extends React.Component {
     if (this.props.loadingIcon) {
       return (
         <div style={divStyle}>
-          <img src={imgUrl} style={imgStyle} />
+          <CircularProgress size={60} thickness={7} />
         </div>
       );
     } else {
