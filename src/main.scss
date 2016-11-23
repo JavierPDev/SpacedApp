@@ -6,3 +6,8 @@
 html, body {
   min-height: 100vh;
 }
+
+// Override normalized button appearance of materialui menuitems 
+[type=reset], [type=submit], button, html [type=button] {
+    -webkit-appearance: none;
+}
