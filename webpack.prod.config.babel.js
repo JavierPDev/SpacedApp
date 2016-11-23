@@ -45,7 +45,8 @@ config.plugins.push(new webpack.optimize.UglifyJsPlugin({
 // Set environment variables for google calendar oauth api
 config.plugins.push(new webpack.DefinePlugin({
   'process.env': {
-    'GOOGLE_OAUTH_CLIENT_ID': JSON.stringify(env.GOOGLE_OAUTH_CLIENT_ID)
+    'GOOGLE_OAUTH_CLIENT_ID': JSON.stringify(env.GOOGLE_OAUTH_CLIENT_ID),
+    'NODE_ENV': JSON.stringify('production')
   }
 }));
 
