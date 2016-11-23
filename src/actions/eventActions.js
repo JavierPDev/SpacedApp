@@ -5,14 +5,14 @@ import { getCalendar } from '../api/calendars';
 import { displayAlert } from 'alertActions';
 import { displayLoadingIcon, hideLoadingIcon } from 'loadingIconActions';
 
-export function startEventCreation(event, dates) {
+export function startEventCreation(event, dates, reminder) {
   return (dispatch, getState) => {
     dispatch(displayLoadingIcon());
 
     return new Promise((resolve, reject) => {
       getCalendar()
         .then((calendar) => {
-          return createSpacedEvent(calendar.id, event, dates)
+          return createSpacedEvent(calendar.id, event, dates, reminder)
             .then((createdEvents) => {
               dispatch(finishEventCreation(createdEvents));
               dispatch(hideLoadingIcon());

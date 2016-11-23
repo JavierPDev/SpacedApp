@@ -15,7 +15,7 @@ export function getSpacedEvents(calendarId) {
       let spacedIds = [];
 
       for (const event of events) {
-        let descArray = event.description.split(' SPACED_APP_DATA: ');
+        let descArray = event.description.split('\nSPACED_APP_DATA: ');
         const realDescription = descArray[0];
         const spacedAppData = JSON.parse(descArray[1]);
         const {spacedId} = spacedAppData;
@@ -52,9 +52,10 @@ export function getSpacedEvents(calendarId) {
  * @param {String} calendarId - Google calendar id
  * @param {Object} event - Event data to save
  * @param {Array} dates - Array of dates that event will take place on
+ * @param {Object} reminder - Method and minutes for reminder
  * @return {Promise} - Resolve with http response data
  */
-export function createSpacedEvent(calendarId, event, dates) {
+export function createSpacedEvent(calendarId, event, dates, reminder) {
   let events = [];
   let promises = [];
   const spacedId = uuid();
@@ -62,15 +63,13 @@ export function createSpacedEvent(calendarId, event, dates) {
   for (const date of dates) {
     let newEvent = {...event};
     const spacedAppData = {spacedId, date};
-    newEvent.start = {
-      date: date,
-      timeZone: 'US/Central'
+    newEvent.start = {date};
+    newEvent.end = {date};
+    newEvent.reminders = {
+      useDefault: false,
+      overrides: [{method: reminder.method, minutes: reminder.minutes}]
     };
-    newEvent.end = {
-      date: date,
-      timeZone: 'US/Central'
-    };
-    newEvent.description += ' SPACED_APP_DATA: '+JSON.stringify(spacedAppData);
+    newEvent.description += '\nSPACED_APP_DATA: '+JSON.stringify(spacedAppData);
     promises.push(createGoogleCalendarEvent(calendarId, newEvent));
   } 
 
@@ -118,6 +117,10 @@ function createGoogleCalendarEvent(calendarId, event) {
     gapi.client.load('calendar', 'v3', () => {
       gapi.client.calendar.events.insert({
         'calendarId': calendarId,
+        'source': {
+          title: 'SpacedApp',
+          url: 'http://spaced.surge.sh'
+        },
         ...event
       })
         .execute(function(savedEvent) {

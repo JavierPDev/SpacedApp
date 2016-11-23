@@ -4,15 +4,24 @@ import { browserHistory } from 'react-router';
 import moment from 'moment';
 import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
+import {Tabs, Tab} from 'material-ui/Tabs';
+import { Card } from 'material-ui/Card';
+import SelectField from 'material-ui/SelectField';
+import MenuItem from 'material-ui/MenuItem';
 
 import { setAppbarTitle } from 'appbarTitleActions';
 import { startEventCreation } from 'eventActions';
 import BackButton from 'BackButton';
 
+const divStyle = {paddingLeft: '40px', paddingBottom: '40px'};
+
 class NewEventForm extends React.Component {
   constructor(props) {
     super(props);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleReminderMethodChange = this.handleReminderMethodChange.bind(this);
+    this.handleReminderMinutesChange = this.handleReminderMinutesChange.bind(this);
+    this.state = {reminderMethod: 'popup', reminderMinutes: 3 * 60};
   }
 
   componentDidMount() {
@@ -28,35 +37,84 @@ class NewEventForm extends React.Component {
     };
 
     const dates = [
-      moment().add(24, 'hours').format('YYYY-MM-DD'),
+      moment().add(24, 'seconds').format('YYYY-MM-DD'),
       moment().add(72, 'hours').format('YYYY-MM-DD'),
       moment().add(120, 'hours').format('YYYY-MM-DD')
     ];
 
-    this.props.dispatch(startEventCreation(data, dates))
+    const reminder = {
+      method: this.state.reminderMethod,
+      minutes: this.state.reminderMinutes
+    };
+
+    this.props.dispatch(startEventCreation(data, dates, reminder))
       .then((res) => browserHistory.push('/events'));
   }
+
+  handleReminderMethodChange(event, index, value) {
+    this.setState({reminderMethod: value});
+  } 
+
+  handleReminderMinutesChange(event, index, value) {
+    this.setState({reminderMinutes: value});
+  } 
 
   render() {
     return (
       <div>
         <BackButton />
         <form onSubmit={this.handleSubmit}>
-          <TextField
-            hintText="Enter title here"
-            floatingLabelText="Title"
-            name="title"
-            ref="title"
+          <Card>
+            <Tabs>
+              <Tab label="Information">
+                <div style={divStyle}>
+                  <TextField
+                    hintText="Enter title here"
+                    floatingLabelText="Title"
+                    name="title"
+                    ref="title"
+                  />
+                  <br />
+                  <TextField
+                    hintText="Enter description here"
+                    floatingLabelText="Description"
+                    name="description"
+                    ref="description"
+                  />
+                </div>
+              </Tab>
+              <Tab label="Reminder">
+                <div style={divStyle}>
+									<SelectField
+										floatingLabelText="Reminder Method"
+										value={this.state.reminderMethod}
+										onChange={this.handleReminderMethodChange}
+									>
+										<MenuItem value={'email'} primaryText="Email" />
+										<MenuItem value={'popup'} primaryText="Notification" />
+									</SelectField>
+                  <br />
+									<SelectField
+										floatingLabelText="Time"
+										value={this.state.reminderMinutes}
+										onChange={this.handleReminderMinutesChange}
+									>
+										<MenuItem value={15 * 60} primaryText="9am" />
+										<MenuItem value={12 * 60} primaryText="12pm" />
+										<MenuItem value={7 * 60} primaryText="5pm" />
+										<MenuItem value={3 * 60} primaryText="9pm" />
+										<MenuItem value={0} primaryText="12am" />
+									</SelectField>
+                </div>
+              </Tab>
+            </Tabs>
+          </Card>
+          <FlatButton
+            label="Add Event"
+            primary={true}
+            type="submit"
+            style={{marginTop: '15px', float: 'right'}}
           />
-          <br />
-          <TextField
-            hintText="Enter description here"
-            floatingLabelText="Description"
-            name="description"
-            ref="description"
-          />
-          <br />
-          <FlatButton label="Add New Event" primary={true} type="submit" />
         </form>
       </div>
     );
