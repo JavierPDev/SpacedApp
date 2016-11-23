@@ -74,12 +74,15 @@ class NewEventForm extends React.Component {
 
   renderDatePickers() {
     let el = [];
+    const minDate = new Date();
+
     this.state.dates.forEach((date, index) => {
       el.push(
         <DatePicker
           hintText="Enter date"
           key={index}
           value={this.state.dates[index]}
+          minDate={minDate}
           onChange={(event, newDate) => {
             let dates = this.state.dates;
             dates[index] = newDate;
@@ -88,6 +91,7 @@ class NewEventForm extends React.Component {
         />
       );
     })
+
     return el;
   }
 
