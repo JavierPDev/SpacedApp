@@ -7,6 +7,11 @@ html, body {
   min-height: 100vh;
 }
 
+// Compensate for fixed position appbar
+body {
+  padding-top: 64px;
+}
+
 // Override normalized button appearance of materialui menuitems 
 [type=reset], [type=submit], button, html [type=button] {
     -webkit-appearance: none;

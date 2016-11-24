@@ -49,6 +49,7 @@ class Nav extends React.Component {
         <AppBar
           title={this.props.appbarTitle}
           onLeftIconButtonTouchTap={this.toggleNav}
+          style={{position: 'fixed', top: 0}}
         />
         <Drawer
           open={this.state.navOpen}
