@@ -69,11 +69,16 @@ export function createSpacedEvent(calendarId, event, dates, reminder) {
     date = moment(date).format('YYYY-MM-DD');
     newEvent.start = {date};
     newEvent.end = {date};
-    newEvent.reminders = {
-      useDefault: false,
-      overrides: [{method: reminder.method, minutes: reminder.minutes}]
-    };
+    newEvent.reminders = {useDefault: false};
+
+    if (reminder) {
+      newEvent.reminders.overrides = [
+        {method: reminder.method, minutes: reminder.minutes}
+      ];
+    }
+
     newEvent.description += '\nSPACED_APP_DATA: '+JSON.stringify(spacedAppData);
+
     promises.push(createGoogleCalendarEvent(calendarId, newEvent));
   } 
 

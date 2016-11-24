@@ -9,6 +9,7 @@ import { Card } from 'material-ui/Card';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 import DatePicker from 'material-ui/DatePicker';
+import Toggle from 'material-ui/Toggle';
 
 import { setAppbarTitle } from 'appbarTitleActions';
 import { startEventCreation } from 'eventActions';
@@ -20,9 +21,6 @@ const styles = {
     minHeight: '25vh',
     paddingLeft: '40px',
     paddingBottom: '40px'
-  },
-  helpBlock: {
-    marginTop: '30px'
   }
 };
 
@@ -32,9 +30,11 @@ class NewEventForm extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleReminderMethodChange = this.handleReminderMethodChange.bind(this);
     this.handleReminderMinutesChange = this.handleReminderMinutesChange.bind(this);
+    this.handleReminderToggle = this.handleReminderToggle.bind(this);
     this.state = {
       reminderMethod: 'popup',
       reminderMinutes: 3 * 60,
+      remindersEnabled: true,
       dates: [
         moment().add(24*3, 'hours').toDate(),
         moment().add(24*7, 'hours').toDate(),
@@ -55,10 +55,12 @@ class NewEventForm extends React.Component {
       description: this.refs.description.input.value,
     };
 
-    const reminder = {
+    const {remindersEnabled} = this.state;
+
+    const reminder = remindersEnabled ? {
       method: this.state.reminderMethod,
       minutes: this.state.reminderMinutes
-    };
+    } : null;
 
     this.props.dispatch(startEventCreation(data, this.state.dates, reminder))
       .then((res) => browserHistory.push('/events'));
@@ -71,6 +73,10 @@ class NewEventForm extends React.Component {
   handleReminderMinutesChange(event, index, value) {
     this.setState({reminderMinutes: value});
   } 
+
+  handleReminderToggle(event) {
+    this.setState({remindersEnabled: !this.state.remindersEnabled})
+  }
 
   renderDatePickers() {
     let el = [];
@@ -106,7 +112,7 @@ class NewEventForm extends React.Component {
                 <div style={styles.cardDiv}>
                   <div className="row">
                     <div className="col-xs-12 col-sm-6 push-sm-6">
-                      <HelpBlock style={styles.helpBlock}>
+                      <HelpBlock style={{marginTop: 30}}>
                         Enter your information here.
                       </HelpBlock>
                     </div>
@@ -132,7 +138,7 @@ class NewEventForm extends React.Component {
                 <div style={styles.cardDiv}>
                   <div className="row">
                     <div className="col-xs-12 col-sm-6 push-sm-6">
-                      <HelpBlock style={styles.helpBlock}>
+                      <HelpBlock style={{marginTop: 30, marginBottom: 20}}>
                         Enter your information here.
                       </HelpBlock>
                     </div>
@@ -142,19 +148,27 @@ class NewEventForm extends React.Component {
                   </div>
                 </div>
               </Tab>
-              <Tab label="Reminder">
+              <Tab label="Reminders">
                 <div style={styles.cardDiv}>
                   <div className="row">
                     <div className="col-xs-12 col-sm-6 push-sm-6">
-                      <HelpBlock style={styles.helpBlock}>
+                      <HelpBlock style={{marginTop: 30, marginBottom: 20}}>
                         Enter your information here.
                       </HelpBlock>
                     </div>
                     <div className="col-xs-12 col-sm-6 pull-sm-6">
+                      <div style={{maxWidth: 250}}>
+                        <Toggle
+                          label="Enable reminders?"
+                          toggled={this.state.remindersEnabled}
+                          onToggle={this.handleReminderToggle}
+                        />
+                      </div>
                       <SelectField
                         floatingLabelText="Reminder Method"
                         value={this.state.reminderMethod}
                         onChange={this.handleReminderMethodChange}
+                        disabled={!this.state.remindersEnabled}
                       >
                         <MenuItem value={'email'} primaryText="Email" />
                         <MenuItem value={'popup'} primaryText="Notification" />
@@ -164,6 +178,7 @@ class NewEventForm extends React.Component {
                         floatingLabelText="Time"
                         value={this.state.reminderMinutes}
                         onChange={this.handleReminderMinutesChange}
+                        disabled={!this.state.remindersEnabled}
                       >
                         <MenuItem value={15 * 60} primaryText="9am" />
                         <MenuItem value={12 * 60} primaryText="12pm" />
