@@ -18,7 +18,12 @@ export function checkAuthorization() {
 
 export function initiateAuthFlow() {
   return new Promise((resolve, reject) => {
-    gapi.auth.authorize({client_id: CLIENT_ID, scope: SCOPE, immediate: false},
+    gapi.auth.authorize({
+      client_id: CLIENT_ID,
+      scope: SCOPE,
+      immediate: false,
+      authuser: -1
+    },
       (authResult) => {
         if (authResult && !authResult.error) {
           console.log('signed in successfully');
