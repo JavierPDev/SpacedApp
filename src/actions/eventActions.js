@@ -5,6 +5,13 @@ import { getCalendar } from '../api/calendars';
 import { displayAlert } from 'alertActions';
 import { displayLoadingIcon, hideLoadingIcon } from 'loadingIconActions';
 
+export function updateNewEvent(event) {
+  return {
+    type: 'UPDATE_NEW_EVENT',
+    event
+  };
+}
+
 export function startEventCreation(event, dates, reminder) {
   return (dispatch, getState) => {
     dispatch(displayLoadingIcon());
@@ -29,10 +36,9 @@ export function startEventCreation(event, dates, reminder) {
   };
 }
 
-export function finishEventCreation(event) {
+export function finishEventCreation() {
   return {
-    type: 'FINISH_EVENT_CREATION',
-    event
+    type: 'FINISH_EVENT_CREATION'
   };
 }
 
