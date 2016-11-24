@@ -10,6 +10,7 @@ import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 import DatePicker from 'material-ui/DatePicker';
 import Toggle from 'material-ui/Toggle';
+import Close from 'material-ui/svg-icons/navigation/close';
 
 import { setAppbarTitle } from 'appbarTitleActions';
 import { startEventCreation } from 'eventActions';
@@ -28,6 +29,7 @@ class NewEventForm extends React.Component {
   constructor(props) {
     super(props);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleAddDate = this.handleAddDate.bind(this);
     this.handleReminderMethodChange = this.handleReminderMethodChange.bind(this);
     this.handleReminderMinutesChange = this.handleReminderMinutesChange.bind(this);
     this.handleReminderToggle = this.handleReminderToggle.bind(this);
@@ -66,6 +68,14 @@ class NewEventForm extends React.Component {
       .then((res) => browserHistory.push('/events'));
   }
 
+  handleAddDate() {
+    const dates = [
+      ...this.state.dates,
+      new Date()
+    ];
+    this.setState({dates});
+  }
+
   handleReminderMethodChange(event, index, value) {
     this.setState({reminderMethod: value});
   } 
@@ -84,17 +94,32 @@ class NewEventForm extends React.Component {
 
     this.state.dates.forEach((date, index) => {
       el.push(
-        <DatePicker
-          hintText="Enter date"
-          key={index}
-          value={this.state.dates[index]}
-          minDate={minDate}
-          onChange={(event, newDate) => {
-            let dates = this.state.dates;
-            dates[index] = newDate;
-            this.setState({dates});
-          }}
-        />
+        <div>
+          <DatePicker
+            hintText="Enter date"
+            className="d-inline-block"
+            key={index}
+            value={this.state.dates[index]}
+            minDate={minDate}
+            onChange={
+              (event, newDate) => {
+                let dates = [...this.state.dates];
+                dates[index] = newDate;
+                this.setState({dates});
+              }
+            }
+          />
+          <Close 
+            className="d-inline-block"
+            onClick={
+              () => {
+                const newDates = this.state
+                  .dates.filter((filterDate) => filterDate !== date);
+                this.setState({dates: newDates});
+              }
+            }
+          />
+        </div>
       );
     })
 
@@ -144,6 +169,12 @@ class NewEventForm extends React.Component {
                     </div>
                     <div className="col-xs-12 col-sm-6 pull-sm-6">
                       {this.renderDatePickers()}
+                      <br />
+                      <FlatButton
+                        secondary={true}
+                        label="Add date"
+                        onClick={this.handleAddDate}
+                      />
                     </div>
                   </div>
                 </div>
