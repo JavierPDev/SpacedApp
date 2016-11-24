@@ -8,6 +8,7 @@ import Event from 'material-ui/svg-icons/action/event';
 import { startEventsRetrieval } from 'eventsActions';
 import AddEventButton from 'AddEventButton';
 import { setAppbarTitle } from 'appbarTitleActions';
+import { startAuthCheck } from 'authActions';
 import EventListItem from 'EventListItem';
 
 const noItemsStyle = {
@@ -23,7 +24,8 @@ class EventsList extends React.Component {
 
   componentDidMount() {
     this.props.dispatch(setAppbarTitle('Events'));
-    this.props.dispatch(startEventsRetrieval());
+    this.props.dispatch(startAuthCheck())
+      .then(() => this.props.dispatch(startEventsRetrieval()));
   }
 
   renderList() {
