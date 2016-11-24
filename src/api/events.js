@@ -23,8 +23,9 @@ export function getSpacedEvents(calendarId) {
 
         if (!spacedIds.includes(spacedId)) {
           spacedIds.push(spacedId);
-          let spacedEvent = {...event};
+          let spacedEvent = {...event, dates: []};
           spacedEvent.spacedId = spacedId;
+          spacedEvent.dates.push(event.start.date);
           spacedEvent.realDescription = realDescription;
           spacedEvent.googleCalendarData = {
             eventIds: [spacedEvent.id],
@@ -34,6 +35,7 @@ export function getSpacedEvents(calendarId) {
         } else {
           for (const spacedEvent of spacedEvents) {
             if (spacedId === spacedEvent.spacedId) {
+              spacedEvent.dates.push(event.start.date);
               spacedEvent.googleCalendarData.dates.push(spacedAppData.date);
               spacedEvent.googleCalendarData.eventIds.push(event.id);
             }

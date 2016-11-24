@@ -1,4 +1,5 @@
 import React from 'react';
+import moment from 'moment';
 import { browserHistory } from 'react-router';
 import { connect } from 'react-redux';
 import { Card, CardActions, CardTitle, CardText } from 'material-ui/Card';
@@ -11,7 +12,7 @@ import BackButton from 'BackButton';
 class EventDetail extends React.Component {
   constructor(props) {
     super(props);
-    const eventId = props.params.eventId;
+    const {eventId} = props.params;
     this.state = {
       event: props.events.find((event) => event.spacedId === eventId)
     };
@@ -30,15 +31,28 @@ class EventDetail extends React.Component {
   }
 
   render() {
-    const {summary, created, realDescription} = this.state.event;
+    const {summary, dates, created, realDescription} = this.state.event;
+    const creator = this.state.event.creator.displayName;
+    const createdDate = moment(created).format('dddd MM-DD-YYYY');
+    const createdTime = moment(created).format('h:mm:ss a');
+    const now = moment().format('MM-DD-YYYY');
+    const activeDates = dates.filter((date) => moment(date).isSameOrAfter(now));
+    const datesSubtitle = activeDates
+                            .map((date) => moment(date).format('MMM DD'))
+                            .join(' | ');
 
     return (
       <div>
         <BackButton />
         <Card>
-          <CardTitle title={summary} subtitle={created} />
+          <CardTitle title={summary} subtitle={datesSubtitle} />
           <CardText>
-            {realDescription}
+            <div>
+              {realDescription}
+            </div>
+            <small style={{position: 'relative', top: '20px'}}>
+              Created on {createdDate} at {createdTime} by {creator}
+            </small>
           </CardText>
           <CardActions>
             <FlatButton
