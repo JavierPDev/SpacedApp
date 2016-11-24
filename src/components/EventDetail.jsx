@@ -35,10 +35,7 @@ class EventDetail extends React.Component {
     const creator = this.state.event.creator.displayName;
     const createdDate = moment(created).format('dddd MM-DD-YYYY');
     const createdTime = moment(created).format('h:mm:ss a');
-    const now = moment().format('MM-DD-YYYY');
-    const activeDates = dates.filter((date) => moment(date).isSameOrAfter(now));
-    const datesSubtitle = activeDates
-                            .map((date) => moment(date).format('MMM DD'))
+    const datesSubtitle = dates.map((date) => moment(date).format('MMM DD'))
                             .join(' | ');
 
     return (
