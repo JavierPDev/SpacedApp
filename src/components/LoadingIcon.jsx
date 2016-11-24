@@ -8,10 +8,8 @@ const divStyle = {
   position: 'fixed',
   left: '50%',
   top: '50%',
-  width: '75px',
-  height: '75px',
-  marginLeft: '-75xpx',
-  marginTop: '-75px'
+  marginLeft: '-30px',
+  marginTop: '-30px'
 };
 
 class LoadingIcon extends React.Component {
