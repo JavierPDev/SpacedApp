@@ -103,13 +103,17 @@ export function deleteSpacedEvent(calendarId, spacedEvent) {
 }
 
 function getGoogleCalendarEvents(calendarId) {
+  const datetime = moment().format('YYYY-MM-DD')+'T'
+    +moment().format('HH:mm')+':00'+moment().format('Z');
+
   return new Promise((resolve, reject) => {
     gapi.client.load('calendar', 'v3', () => {
       gapi.client.calendar.events.list({
         'calendarId': calendarId,
         'showDeleted': false,
         'singleEvents': true,
-        'maxResults': 10,
+        'maxResults': 2500,
+        'timeMin': datetime,
         'orderBy': 'startTime'
       })
         .execute(function(resp) {
