@@ -7,6 +7,7 @@ import { Card } from 'material-ui/Card';
 
 import { setAppbarTitle } from 'appbarTitleActions';
 import { startEventCreation } from 'eventActions';
+import { startEventsRetrieval } from 'eventsActions';
 import BackButton from 'BackButton';
 import InformationTab from 'InformationTab';
 import DatesTab from 'DatesTab';
@@ -48,7 +49,10 @@ class NewEventForm extends React.Component {
     const {dates} = this.props.event;
 
     this.props.dispatch(startEventCreation(data, dates, reminder))
-      .then((res) => browserHistory.push('/events'));
+      .then((res) => {
+        this.props.dispatch(startEventsRetrieval());
+        browserHistory.push('/events');
+      });
   }
 
   render() {

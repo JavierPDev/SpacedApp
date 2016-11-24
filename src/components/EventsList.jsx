@@ -36,10 +36,6 @@ class EventsList extends React.Component {
     this.fetchEventsIfAuthenticated();
   }
 
-  componentWillUnmount() {
-    this.props.dispatch(clearEvents());
-  }
-
   renderList() {
     const {events} = this.props;
 

@@ -7,6 +7,7 @@ import FlatButton from 'material-ui/FlatButton';
 
 import { setAppbarTitle } from 'appbarTitleActions';
 import { startEventDeletion } from 'eventActions';
+import { startEventsRetrieval } from 'eventsActions';
 import BackButton from 'BackButton';
 
 class EventDetail extends React.Component {
@@ -26,6 +27,7 @@ class EventDetail extends React.Component {
   handleDeleteClick(e) {
     this.props.dispatch(startEventDeletion(this.state.event))
       .then(() => {
+        this.props.dispatch(startEventsRetrieval());
         browserHistory.push('/events');
       });
   }
