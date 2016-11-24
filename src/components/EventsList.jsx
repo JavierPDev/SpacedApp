@@ -5,10 +5,9 @@ import Card from 'material-ui/Card';
 import RaisedButton from 'material-ui/RaisedButton';
 import Event from 'material-ui/svg-icons/action/event';
 
-import { startEventsRetrieval } from 'eventsActions';
+import { startEventsRetrieval, clearEvents } from 'eventsActions';
 import AddEventButton from 'AddEventButton';
 import { setAppbarTitle } from 'appbarTitleActions';
-import { startAuthCheck } from 'authActions';
 import EventListItem from 'EventListItem';
 
 const noItemsStyle = {
@@ -22,10 +21,23 @@ class EventsList extends React.Component {
     super(props);
   }
 
+  fetchEventsIfAuthenticated() {
+    if (this.props.auth && !this.props.events) {
+      this.props.dispatch(startEventsRetrieval())
+    }
+  }
+
   componentDidMount() {
     this.props.dispatch(setAppbarTitle('Events'));
-    this.props.dispatch(startAuthCheck())
-      .then(() => this.props.dispatch(startEventsRetrieval()));
+    this.fetchEventsIfAuthenticated();
+  }
+
+  componentDidUpdate() {
+    this.fetchEventsIfAuthenticated();
+  }
+
+  componentWillUnmount() {
+    this.props.dispatch(clearEvents());
   }
 
   renderList() {
@@ -65,6 +77,7 @@ class EventsList extends React.Component {
 
 export default connect((state) => {
   return {
-    events: state.events
+    events: state.events,
+    auth: state.auth
   };
 })(EventsList);

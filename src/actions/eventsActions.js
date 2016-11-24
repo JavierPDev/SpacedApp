@@ -36,3 +36,9 @@ export function failEventsRetrieval() {
     type: 'FAIL_EVENTS_RETRIEVAL'
   };
 }
+
+export function clearEvents() {
+  return {
+    type: 'CLEAR_EVENTS'
+  };
+}
