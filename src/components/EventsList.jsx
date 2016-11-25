@@ -5,7 +5,7 @@ import Card from 'material-ui/Card';
 import RaisedButton from 'material-ui/RaisedButton';
 import Event from 'material-ui/svg-icons/action/event';
 
-import { startEventsRetrieval, clearEvents } from 'eventsActions';
+import { startEventsRetrieval } from 'eventsActions';
 import AddEventButton from 'AddEventButton';
 import { setAppbarTitle } from 'appbarTitleActions';
 import EventListItem from 'EventListItem';
