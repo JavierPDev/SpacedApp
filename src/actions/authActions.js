@@ -1,6 +1,6 @@
 import { browserHistory } from 'react-router';
 
-import * as auth from '../auth/google';
+import * as auth from '../api/auth';
 import { startCalendarRetrieval } from 'calendarActions';
 import { displayAlert } from 'alertActions';
 import { displayLoadingIcon, hideLoadingIcon } from 'loadingIconActions';
