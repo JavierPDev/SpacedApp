@@ -7,9 +7,12 @@ import MenuItem from 'material-ui/MenuItem';
 import Event from 'material-ui/svg-icons/action/event';
 import Info from 'material-ui/svg-icons/action/info';
 import PersonOutline from 'material-ui/svg-icons/social/person-outline';
+import PeopleOutline from 'material-ui/svg-icons/social/people-outline';
 
 import { logout } from 'authActions';
 import { displayAlert } from 'alertActions';
+import { startAuthFlow } from 'authActions';
+import { startEventsRetrieval } from 'eventsActions';
 
 class Nav extends React.Component {
   constructor(props) {
@@ -19,7 +22,8 @@ class Nav extends React.Component {
     };
 
     this.toggleNav = this.toggleNav.bind(this);
-    this.onLogoutTouch = this.onLogoutTouch.bind(this);
+    this.handleChangeUserTouch = this.handleChangeUserTouch.bind(this);
+    this.handleLogoutTouch = this.handleLogoutTouch.bind(this);
   }
 
   toggleNav() {
@@ -28,20 +32,39 @@ class Nav extends React.Component {
     });
   }
 
-  onLogoutTouch() {
+  handleChangeUserTouch() {
+    this.toggleNav();
+    this.props.dispatch(startAuthFlow())
+      .then(() => {
+        this.props.dispatch(displayAlert('Changed user account'));
+        this.props.dispatch(startEventsRetrieval());
+      });
+  }
+
+  handleLogoutTouch() {
     this.props.dispatch(logout());
     this.props.dispatch(displayAlert('Logged out'));
     this.toggleNav();
   }
 
   render() {
-    const renderLogout = () => {
+    const renderUserControls = () => {
       if (!this.props.auth) return null;
-      return <MenuItem
-        primaryText="Logout"
-        leftIcon={<PersonOutline />}
-        onTouchTap={this.onLogoutTouch}
-      />;
+
+      return (
+        <div>
+          <MenuItem
+            primaryText="Change User Account"
+            leftIcon={<PeopleOutline />}
+            onTouchTap={this.handleChangeUserTouch}
+          />
+          <MenuItem
+            primaryText="Logout"
+            leftIcon={<PersonOutline />}
+            onTouchTap={this.handleLogoutTouch}
+          />
+        </div>
+      );
     };
 
     return (
@@ -80,7 +103,7 @@ class Nav extends React.Component {
               onTouchTap={this.toggleNav}
             />
           </Link>
-          {renderLogout()}
+          {renderUserControls()}
           <div className="full-height"></div>
         </Drawer>
       </div>
