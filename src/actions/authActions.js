@@ -16,7 +16,7 @@ export function startAuthCheck() {
       }, () => {
         dispatch(denyAuthorization());
         dispatch(hideLoadingIcon());
-        dispatch(displayAlert('Authentication failed'));
+        dispatch(displayAlert('Not logged in'));
       });
   };
 }
