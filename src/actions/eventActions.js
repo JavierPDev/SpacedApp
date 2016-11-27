@@ -24,11 +24,13 @@ export function startEventCreation(event, dates, reminder) {
               dispatch(finishEventCreation(createdEvents));
               dispatch(hideLoadingIcon());
               dispatch(displayAlert('Event created'));
+
               resolve(createdEvents);
             }, () => {
               dispatch(hideLoadingIcon());
               dispatch(failEventCreation());
               dispatch(displayAlert('Request failed'));
+
               reject();
             });
         });
@@ -60,11 +62,13 @@ export function startEventDeletion(event) {
               dispatch(finishEventDeletion());
               dispatch(hideLoadingIcon());
               dispatch(displayAlert('Event deleted'));
+
               resolve();
             }, () => {
               dispatch(hideLoadingIcon());
               dispatch(failEventDeletion());
               dispatch(displayAlert('Request failed'));
+
               reject();
             });
         });

@@ -7,10 +7,12 @@ import { displayLoadingIcon, hideLoadingIcon } from 'loadingIconActions';
 export function startCalendarRetrieval() {
   return (dispatch, getState) => {
     dispatch(displayLoadingIcon());
+
     return getCalendar()
       .then((calendar) => {
         dispatch(finishCalendarRetrieval(calendar));
         dispatch(hideLoadingIcon());
+
         if (calendar.isNew) {
           dispatch(displayAlert('Created new google calendar "SpacedApp"'));
         }
