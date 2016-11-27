@@ -6,10 +6,8 @@ export function checkAuthorization() {
     gapi.auth.authorize({client_id: CLIENT_ID, scope: SCOPE, immediate: true},
       (authResult) => {
         if (authResult && !authResult.error) {
-          console.log('authorized successfully');
           resolve(authResult);
         } else {
-          console.log('not authorized');
           reject();
         }
       });
@@ -26,10 +24,8 @@ export function initiateAuthFlow() {
     },
       (authResult) => {
         if (authResult && !authResult.error) {
-          console.log('signed in successfully');
           resolve(authResult);
         } else {
-          console.log('failed to sign in');
           reject();
         }
       });
