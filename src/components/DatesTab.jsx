@@ -24,13 +24,13 @@ class DatesTab extends React.Component {
       return;
     }
 
-    const datesDesc = this.props.event.dates
+    const latestDate = this.props.event.dates
       .map((date) => date.valueOf())
       .sort()
-      .reverse();
+      .reverse()[0];
     const dates = [
       ...this.props.event.dates,
-      moment(datesDesc[0]).add(3, 'days').toDate()
+      moment(latestDate).add(3, 'days').toDate()
     ];
     const newEventState = {...this.props.event, dates: [...dates]};
 
