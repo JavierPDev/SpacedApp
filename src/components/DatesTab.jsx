@@ -14,7 +14,9 @@ class DatesTab extends React.Component {
     this.handleAddDate = this.handleAddDate.bind(this);
   }
 
-  handleAddDate() {
+  handleAddDate(event) {
+    event.preventDefault();
+
     const datesDesc = this.props.event.dates
       .map((date) => date.valueOf())
       .sort()
