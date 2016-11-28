@@ -5,6 +5,7 @@ import FlatButton from 'material-ui/FlatButton';
 import { Tabs, Tab } from 'material-ui/Tabs';
 import { Card } from 'material-ui/Card';
 
+import { displayAlert } from 'alertActions';
 import { setAppbarTitle } from 'appbarTitleActions';
 import { startEventCreation } from 'eventActions';
 import { startEventsRetrieval } from 'eventsActions';
@@ -44,6 +45,17 @@ class NewEventForm extends React.Component {
       method: this.props.event.reminderMethod,
       minutes: this.props.event.reminderMinutes
     } : null;
+
+    if (!dates.length) {
+      const alertMessage = 'Must have dates.';
+      this.props.dispatch(displayAlert(alertMessage));
+      return;
+    }
+    if (!data.summary) {
+      const alertMessage = 'Must have a title.';
+      this.props.dispatch(displayAlert(alertMessage));
+      return;
+    }
 
     this.props.dispatch(startEventCreation(data, dates, reminder))
       .then((res) => {
