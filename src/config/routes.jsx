@@ -1,5 +1,6 @@
 import React from 'react';
-import { Router, Route, IndexRoute, browserHistory } from 'react-router';
+import { Router, Route, IndexRoute,
+  Redirect, browserHistory } from 'react-router';
 
 import { store } from '../store';
 import App from 'App';
@@ -20,6 +21,7 @@ export const routes = (
       <Route path="events/:eventId" component={EventDetail} onEnter={requireLogin} />
       <Route path="login" component={Login} />
       <Route path="test" component={Test} />
+      <Redirect from="*" to="/" />
     </Route>
   </Router>
 );
