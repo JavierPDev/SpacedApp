@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server --config webpack.dev.config.babel.js -d --inline",
-    "build": "rm -rf ./dist && webpack --config webpack.prod.config.babel.js && cp ./src/manifest.json ./dist && cp -f ./dist/index.html ./dist/200.html && git show >> ./dist/currentcommit.txt",
+    "build": "rm -rf ./dist && webpack --config webpack.prod.config.babel.js && cp -R ./src/manifest.json ./src/assets ./dist && cp -f ./dist/index.html ./dist/200.html && git show >> ./dist/currentcommit.txt",
     "lint": "eslint .",
     "test": "npm run test.unit && npm run test.e2e.prod",
     "test.dev": "npm run test.unit && npm run test.e2e.dev",
