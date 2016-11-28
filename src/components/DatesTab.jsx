@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import moment from 'moment';
 import FlatButton from 'material-ui/FlatButton';
 import DatePicker from 'material-ui/DatePicker';
 import Close from 'material-ui/svg-icons/navigation/close';
@@ -14,12 +15,16 @@ class DatesTab extends React.Component {
   }
 
   handleAddDate() {
+    const datesDesc = this.props.event.dates
+      .map((date) => date.valueOf())
+      .sort()
+      .reverse();
     const dates = [
       ...this.props.event.dates,
-      new Date()
+      moment(datesDesc[0]).add(3, 'days').toDate()
     ];
-
     const newEventState = {...this.props.event, dates: [...dates]};
+
     this.props.dispatch(updateNewEvent(newEventState));
   }
 
