@@ -34,19 +34,16 @@ class NewEventForm extends React.Component {
   handleSubmit(event) {
     event.preventDefault()
 
+    const {dates} = this.props.event;
+    const {remindersEnabled} = this.props.event;
     const data = {
       summary: this.props.event.summary,
       description: this.props.event.description
     };
-
-    const {remindersEnabled} = this.props.event;
-
     const reminder = remindersEnabled ? {
       method: this.props.event.reminderMethod,
       minutes: this.props.event.reminderMinutes
     } : null;
-
-    const {dates} = this.props.event;
 
     this.props.dispatch(startEventCreation(data, dates, reminder))
       .then((res) => {

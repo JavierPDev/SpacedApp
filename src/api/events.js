@@ -16,28 +16,28 @@ export function getSpacedEvents(calendarId) {
       let spacedIds = [];
 
       for (const event of events) {
-        let descArray = event.description.split('\nSPACED_APP_DATA: ');
+        const descArray = event.description.split('\nSPACED_APP_DATA: ');
         const realDescription = descArray[0];
         const spacedAppData = JSON.parse(descArray[1]);
         const {spacedId} = spacedAppData;
 
         if (!spacedIds.includes(spacedId)) {
           spacedIds.push(spacedId);
-          let spacedEvent = {...event, dates: []};
-          spacedEvent.spacedId = spacedId;
-          spacedEvent.dates.push(event.start.date);
-          spacedEvent.realDescription = realDescription;
-          spacedEvent.googleCalendarData = {
-            eventIds: [spacedEvent.id],
-            dates: [spacedAppData.date]
-          }
+
+          const spacedEvent = {
+            ...event,
+            spacedId,
+            realDescription,
+            dates: [event.start.date],
+            eventIds: [event.id]
+          };
+
           spacedEvents.push(spacedEvent);
         } else {
           for (const spacedEvent of spacedEvents) {
-            if (spacedId === spacedEvent.spacedId) {
+            if (spacedEvent.spacedId === spacedId) {
               spacedEvent.dates.push(event.start.date);
-              spacedEvent.googleCalendarData.dates.push(spacedAppData.date);
-              spacedEvent.googleCalendarData.eventIds.push(event.id);
+              spacedEvent.eventIds.push(event.id);
             }
           }
         }
@@ -61,23 +61,25 @@ export function getSpacedEvents(calendarId) {
 export function createSpacedEvent(calendarId, event, dates, reminder) {
   let events = [];
   let promises = [];
-  const spacedId = uuid();
+  const spacedAppData = {spacedId: uuid()};
 
-  for (let date of dates) {
-    let newEvent = {...event};
-    const spacedAppData = {spacedId, date};
-    date = moment(date).format('YYYY-MM-DD');
-    newEvent.start = {date};
-    newEvent.end = {date};
-    newEvent.reminders = {useDefault: false};
+  for (const d of dates) {
+    const date = moment(d).format('YYYY-MM-DD');
+
+    let newEvent = {
+      ...event,
+      start: {date},
+      end: {date},
+      reminders: {useDefault: false},
+      description: event.description
+        +'\nSPACED_APP_DATA: '+JSON.stringify(spacedAppData)
+    };
 
     if (reminder) {
       newEvent.reminders.overrides = [
         {method: reminder.method, minutes: reminder.minutes}
       ];
     }
-
-    newEvent.description += '\nSPACED_APP_DATA: '+JSON.stringify(spacedAppData);
 
     promises.push(createGoogleCalendarEvent(calendarId, newEvent));
   } 
@@ -95,7 +97,7 @@ export function createSpacedEvent(calendarId, event, dates, reminder) {
 export function deleteSpacedEvent(calendarId, spacedEvent) {
   let promises = [];
 
-  for (const eventId of spacedEvent.googleCalendarData.eventIds) {
+  for (const eventId of spacedEvent.eventIds) {
     promises.push(deleteGoogleCalendarEvent(calendarId, eventId));
   }
 
