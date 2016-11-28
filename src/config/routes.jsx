@@ -6,7 +6,6 @@ import { store } from '../store';
 import App from 'App';
 import About from 'About';
 import Login from 'Login';
-import Test from 'Test';
 import EventsList from 'EventsList';
 import EventDetail from 'EventDetail';
 import NewEventForm from 'NewEventForm';
@@ -20,7 +19,6 @@ export const routes = (
       <Route path="events/new" component={NewEventForm} onEnter={requireLogin} />
       <Route path="events/:eventId" component={EventDetail} onEnter={requireLogin} />
       <Route path="login" component={Login} />
-      <Route path="test" component={Test} />
       <Redirect from="*" to="/" />
     </Route>
   </Router>
