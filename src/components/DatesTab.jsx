@@ -38,11 +38,10 @@ class DatesTab extends React.Component {
   }
 
   renderDatePickers() {
-    let el = [];
     const minDate = new Date();
 
-    this.props.event.dates.forEach((date, index) => {
-      el.push(
+    return this.props.event.dates.map((date, index) => {
+      return (
         <div key={Math.floor(Math.random() * 1000).toString()}>
           <DatePicker
             hintText="Enter date"
@@ -73,9 +72,7 @@ class DatesTab extends React.Component {
           />
         </div>
       );
-    })
-
-    return el;
+    });
   }
 
   render() {
