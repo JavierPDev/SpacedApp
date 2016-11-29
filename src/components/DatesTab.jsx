@@ -85,6 +85,7 @@ class DatesTab extends React.Component {
             </HelpBlock>
           </div>
           <div className="col-xs-12 col-sm-6 pull-sm-6">
+            <br className="hidden-xs-down" />
             {this.renderDatePickers()}
             <br />
             <FlatButton

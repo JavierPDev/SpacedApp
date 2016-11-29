@@ -49,6 +49,7 @@ class RemindersTab extends React.Component {
             </HelpBlock>
           </div>
           <div className="col-xs-12 col-sm-6 pull-sm-6">
+            <br className="hidden-xs-down" />
             <div style={{maxWidth: 250}}>
               <Toggle
                 label="Enable reminders?"
