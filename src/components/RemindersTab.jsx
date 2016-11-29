@@ -45,7 +45,7 @@ class RemindersTab extends React.Component {
         <div className="row">
           <div className="col-xs-12 col-sm-6 push-sm-6">
             <HelpBlock style={{marginTop: 30, marginBottom: 20}}>
-              Enter your information here.
+              Change how (and if) you would like to be reminded to review your knowledge.
             </HelpBlock>
           </div>
           <div className="col-xs-12 col-sm-6 pull-sm-6">

@@ -28,7 +28,7 @@ class InformationTab extends React.Component {
         <div className="row">
           <div className="col-xs-12 col-sm-6 push-sm-6">
             <HelpBlock style={{marginTop: 30}}>
-              Enter your information here.
+              Enter a title and description for what you would like to review in the future.
             </HelpBlock>
           </div>
           <div className="col-xs-12 col-sm-6 pull-sm-6">
