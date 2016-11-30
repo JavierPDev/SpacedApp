@@ -2,9 +2,10 @@ import moment from 'moment';
 
 const defaultEvent = {
   dates: [
-    moment().add(24*3, 'hours').toDate(),
-    moment().add(24*7, 'hours').toDate(),
-    moment().add(24*14, 'hours').toDate()
+    moment().add(24*1, 'hours').toDate(),
+    moment().add(24*10, 'hours').toDate(),
+    moment().add(24*30, 'hours').toDate(),
+    moment().add(24*60, 'hours').toDate()
   ],
   description: '',
   reminderMethod: 'popup',
