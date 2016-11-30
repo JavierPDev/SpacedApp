@@ -81,7 +81,7 @@ class DatesTab extends React.Component {
         <div className="row">
           <div className="col-xs-12 col-sm-6 push-sm-6">
             <HelpBlock style={{marginTop: 30, marginBottom: 20}}>
-              Choose the dates on which you want to review what you have learned. <a href="https://en.wikipedia.org/wiki/Spaced_repetition" target="_blank">Spaced repition</a> helps keep information in long-term memory. 
+              Choose the dates on which you want to review what you have learned. <a href="https://en.wikipedia.org/wiki/Spaced_repetition" target="_blank">Spaced repition</a> helps keep information in long-term memory. Remember, the optimum moment for repetition is right before you would have forgotten the information.
             </HelpBlock>
           </div>
           <div className="col-xs-12 col-sm-6 pull-sm-6">
