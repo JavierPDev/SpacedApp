@@ -11,8 +11,9 @@ class About extends React.Component {
   render() {
     return (
       <div>
-        <h1>About</h1>
-        <p>This is the about page</p>
+        <p>
+          Spaced takes advantage of the <a href="https://en.wikipedia.org/wiki/Spaced_repetition">spaced repetition technique</a> by allowing the user to set multiple dates in google calendar for a single learning or review event. A reminder for all dates may also be set.
+        </p>
       </div>
     );
   }
