@@ -22,7 +22,7 @@ A Google oauth client ID is needed for the app to work. It can either be set in 
 # Install dependencies
 npm install
 
-# Start app in development server ()
+# Start app in development server
 npm start
 
 # Build app into /dist directory
