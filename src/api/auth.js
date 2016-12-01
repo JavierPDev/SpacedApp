@@ -19,8 +19,8 @@ export function initiateAuthFlow() {
     gapi.auth.authorize({
       client_id: CLIENT_ID,
       scope: SCOPE,
-      immediate: false,
-      authuser: -1
+      authuser: -1,
+      prompt: 'select_account'
     },
       (authResult) => {
         if (authResult && !authResult.error) {
