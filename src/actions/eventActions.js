@@ -4,10 +4,12 @@ import { createSpacedEvent, deleteSpacedEvent } from '../api/events';
 import { getCalendar } from '../api/calendars';
 import { displayAlert } from 'alertActions';
 import { displayLoadingIcon, hideLoadingIcon } from 'loadingIconActions';
+import { UPDATE_NEW_EVENT, FINISH_EVENT_CREATION, FAIL_EVENT_CREATION,
+  FINISH_EVENT_DELETION, FAIL_EVENT_DELETION } from 'types';
 
 export function updateNewEvent(event) {
   return {
-    type: 'UPDATE_NEW_EVENT',
+    type: UPDATE_NEW_EVENT,
     event
   };
 }
@@ -40,13 +42,13 @@ export function startEventCreation(event, dates, reminder) {
 
 export function finishEventCreation() {
   return {
-    type: 'FINISH_EVENT_CREATION'
+    type: FINISH_EVENT_CREATION
   };
 }
 
 export function failEventCreation() {
   return {
-    type: 'FAIL_EVENT_CREATION'
+    type: FAIL_EVENT_CREATION
   };
 }
 
@@ -78,12 +80,12 @@ export function startEventDeletion(event) {
 
 export function finishEventDeletion() {
   return {
-    type: 'FINISH_EVENT_DELETION'
+    type: FINISH_EVENT_DELETION
   };
 }
 
 export function failEventDeletion() {
   return {
-    type: 'FAIL_EVENT_DELETION'
+    type: FAIL_EVENT_DELETION
   };
 }

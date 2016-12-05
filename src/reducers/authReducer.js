@@ -1,10 +1,12 @@
+import { GRANT_AUTHORIZATION, DENY_AUTHORIZATION, LOGOUT } from 'types';
+
 export default function authReducer(state = null, action) {
   switch (action.type) {
-    case 'GRANT_AUTHORIZATION':
+    case GRANT_AUTHORIZATION:
       return action.authResult;
-    case 'DENY_AUTHORIZATION':
+    case DENY_AUTHORIZATION:
       return null;
-    case 'LOGOUT':
+    case LOGOUT:
       return null;
     default:
       return state;

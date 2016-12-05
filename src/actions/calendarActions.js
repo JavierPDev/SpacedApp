@@ -3,6 +3,7 @@ import { browserHistory } from 'react-router';
 import { getCalendar } from '../api/calendars';
 import { displayAlert } from 'alertActions';
 import { displayLoadingIcon, hideLoadingIcon } from 'loadingIconActions';
+import { FINISH_CALENDAR_RETRIEVAL, FAIL_CALENDAR_RETRIEVAL } from 'types';
 
 export function startCalendarRetrieval() {
   return (dispatch, getState) => {
@@ -25,13 +26,13 @@ export function startCalendarRetrieval() {
 
 export function finishCalendarRetrieval(calendar) {
   return {
-    type: 'FINISH_CALENDAR_RETRIEVAL',
+    type: FINISH_CALENDAR_RETRIEVAL,
     calendar
   };
 }
 
 export function failCalendarRetrieval() {
   return {
-    type: 'FAIL_CALENDAR_RETRIEVAL'
+    type: FAIL_CALENDAR_RETRIEVAL
   };
 }

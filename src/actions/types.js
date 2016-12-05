@@ -1,0 +1,31 @@
+// Events action types
+export const FINISH_EVENTS_RETRIEVAL = 'FINISH_EVENTS_RETRIEVAL';
+export const FAIL_EVENTS_RETRIEVAL = 'FAIL_EVENTS_RETRIEVAL';
+export const CLEAR_EVENTS = 'CLEAR_EVENTS';
+
+// Event action types
+export const UPDATE_NEW_EVENT = 'UPDATE_NEW_EVENT';
+export const FINISH_EVENT_CREATION = 'FINISH_EVENT_CREATION';
+export const FAIL_EVENT_CREATION = 'FAIL_EVENT_CREATION';
+export const FINISH_EVENT_DELETION = 'FINISH_EVENT_DELETION';
+export const FAIL_EVENT_DELETION = 'FAIL_EVENT_DELETION';
+
+// Calendar action types
+export const FINISH_CALENDAR_RETRIEVAL = 'FINISH_CALENDAR_RETRIEVAL';
+export const FAIL_CALENDAR_RETRIEVAL = 'FAIL_CALENDAR_RETRIEVAL';
+
+// Auth action types
+export const GRANT_AUTHORIZATION = 'GRANT_AUTHORIZATION';
+export const DENY_AUTHORIZATION = 'DENY_AUTHORIZATION';
+export const LOGOUT = 'LOGOUT';
+
+// Alert action types
+export const DISPLAY_ALERT = 'DISPLAY_ALERT';
+export const HIDE_ALERT = 'HIDE_ALERT';
+
+// Loading icon action types
+export const DISPLAY_LOADING_ICON = 'DISPLAY_LOADING_ICON';
+export const HIDE_LOADING_ICON = 'HIDE_LOADING_ICON';
+
+// App bar action types
+export const SET_APPBAR_TITLE = 'SET_APPBAR_TITLE';

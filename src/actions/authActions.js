@@ -4,6 +4,7 @@ import * as auth from '../api/auth';
 import { startCalendarRetrieval } from 'calendarActions';
 import { displayAlert } from 'alertActions';
 import { displayLoadingIcon, hideLoadingIcon } from 'loadingIconActions';
+import { GRANT_AUTHORIZATION, DENY_AUTHORIZATION, LOGOUT } from 'types';
 
 export function startAuthCheck() {
   return (dispatch, getState) => {
@@ -40,7 +41,7 @@ export function startAuthFlow() {
 
 export function grantAuthorization(authResult) {
   return {
-    type: 'GRANT_AUTHORIZATION',
+    type: GRANT_AUTHORIZATION,
     authResult
   };
 }
@@ -48,7 +49,7 @@ export function grantAuthorization(authResult) {
 export function denyAuthorization() {
   browserHistory.push('/login');
   return {
-    type: 'DENY_AUTHORIZATION'
+    type: DENY_AUTHORIZATION
   };
 }
 
@@ -57,6 +58,6 @@ export function logout() {
   browserHistory.push('/login');
 
   return {
-    type: 'LOGOUT'
+    type: LOGOUT
   };
 }

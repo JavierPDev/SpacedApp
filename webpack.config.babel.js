@@ -44,7 +44,8 @@ export default {
       'node_modules',
       './src/components',
       './src/actions',
-      './src/reducers'
+      './src/reducers',
+      './src/types'
     ],
     extensions: ['', '.js', '.jsx']
   },

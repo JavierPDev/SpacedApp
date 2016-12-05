@@ -1,3 +1,5 @@
+import { DISPLAY_ALERT, HIDE_ALERT } from 'types';
+
 const defaultState = {
   open: false,
   message: '',
@@ -6,13 +8,13 @@ const defaultState = {
 
 export default function alertReducer(state = defaultState, action) {
   switch (action.type) {
-    case 'DISPLAY_ALERT':
+    case DISPLAY_ALERT:
       return {
         ...state,
         open: true,
         message: action.message
       };
-    case 'HIDE_ALERT':
+    case HIDE_ALERT:
       return {
         ...state,
         open: false
